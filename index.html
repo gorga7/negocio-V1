@@ -70,20 +70,29 @@ p, li, span { color:#e0e0e0; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
 .typed-cursor { font-weight:bold; font-size:1.2em; color:#7c3aed; }
 .gradient-title { background: linear-gradient(90deg, #7c3aed, #6366f1); -webkit-background-clip: text; color: transparent; text-shadow: 0 4px 12px rgba(124,58,237,0.5); }
 
-/* Carrusel animado */
+ /* Carrusel animado centrado */
 .brand-carousel-wrapper {
     overflow: hidden;
     position: relative;
     margin-top: 3rem;
+    display: flex;
+    justify-content: center; /* centra el carrusel */
 }
 .brand-carousel-track {
     display: flex;
     gap: 2rem;
     animation: scroll 20s linear infinite;
+    flex-wrap: nowrap;
 }
 .brand-carousel-track:hover { animation-play-state: paused; }
-.brand-carousel-track img { height:50px; transition: transform 0.3s ease, filter 0.3s ease; }
-.brand-carousel-track img:hover { transform: scale(1.15); filter: drop-shadow(0 0 8px #7c3aed); }
+.brand-carousel-track img {
+    height:50px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+.brand-carousel-track img:hover {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 8px #7c3aed);
+}
 
 @keyframes scroll {
     0% { transform: translateX(0); }
@@ -139,7 +148,7 @@ p, li, span { color:#e0e0e0; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
         </div>
     </div>
 
-    <!-- Carrusel animado -->
+    <!-- Carrusel animado centrado -->
     <div class="brand-carousel-wrapper">
         <div class="brand-carousel-track">
             <div class="flex items-center justify-center bg-gray-800 rounded-lg p-2"><img src="https://1000logos.net/wp-content/uploads/2021/04/HyperX-logo.png" alt="HyperX"></div>
