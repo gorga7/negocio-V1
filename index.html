@@ -226,16 +226,16 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let stars = [];
-for(let i=0;i<300;i++){
+for(let i = 0; i < 300; i++){ // menos estrellas
     stars.push({
         x: Math.random()*canvas.width,
         y: Math.random()*canvas.height,
-        r: Math.random()*2+0.3,
+        r: Math.random()*1.2 + 0.2, // más pequeñas
         depth: Math.random()*2+0.5,
         blink: Math.random()*Math.PI*2,
-        blinkSpeed: 0.03 + Math.random()*0.07, // más rápido
-        blinkRange: 0.5 + Math.random()*0.5,
-        flickerOffset: Math.random()*Math.PI*2 // offset para titileo más natural
+        blinkSpeed: 0.03 + Math.random()*0.07,
+        blinkRange: 0.4 + Math.random()*0.4, // un poco menos brillante
+        flickerOffset: Math.random()*Math.PI*2
     });
 };
 
