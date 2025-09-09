@@ -234,7 +234,7 @@ for(let i = 0; i < 300; i++){ // menos estrellas
         depth: Math.random()*2+0.5,
         blink: Math.random()*Math.PI*2,
         blinkSpeed: 0.03 + Math.random()*0.07,
-        blinkRange: 0.4 + Math.random()*0.4, // un poco menos brillante
+        blinkRange: 0.4 + Math.random()*0.4, 
         flickerOffset: Math.random()*Math.PI*2
     });
 };
@@ -252,22 +252,19 @@ function createMeteor(){
 }
 
 let lastScrollY = window.scrollY;
+let time = 0;
 
 function drawParticles(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
     // Fondo universo
-const gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, canvas.width/2);
-gradient.addColorStop(0,'#0a0a1a');
-gradient.addColorStop(0.5,'#0b0b2f');
-gradient.addColorStop(1,'#1a1a3d');
-ctx.fillStyle = '#0b0b2f'; // color uniforme
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
+    ctx.fillStyle = '#0b0b2f';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
 
     const scrollDiff = window.scrollY - lastScrollY;
+    time += 0.003; // un poco más rápido
 
-    // Estrellas con titileo más realista y caótico
+    // Estrellas con titileo, movimiento vertical y lateral
     stars.forEach(s=>{
         s.blink += s.blinkSpeed;
         const flicker = Math.sin(s.blink + s.flickerOffset) + Math.sin(s.blink*1.5 + s.flickerOffset*0.7);
@@ -277,10 +274,16 @@ ctx.fillRect(0,0,canvas.width,canvas.height);
         ctx.fillStyle = `rgba(255,255,255,${opacity})`;
         ctx.fill();
 
-        // Parallax con scroll
+        // Parallax con scroll + movimiento automático sutil
         s.y -= scrollDiff * s.depth * 0.5;
+        s.y += Math.sin(time + s.x*0.001) * 0.25; // mini desplazamiento vertical
+        s.x += Math.cos(time + s.y*0.001) * 0.15; // mini desplazamiento lateral
+
+        // Rebote suave en bordes
         if(s.y<0) s.y = canvas.height;
         if(s.y>canvas.height) s.y = 0;
+        if(s.x<0) s.x = canvas.width;
+        if(s.x>canvas.width) s.x = 0;
     });
 
     // Meteoros
@@ -325,11 +328,13 @@ new Typed('#typed-sobre', {
     strings: [
         'Soy Rodrigo Gorga, técnico en informática y fundador de RG Tech. Me especializo en la reparación, armado y soporte de PCs y celulares, además de brindar asesoramiento personalizado a cada cliente. También ayudo a optimizar sistemas, instalar software profesional y mejorar el rendimiento de tus dispositivos para que siempre funcionen al máximo.'
     ],
-    typeSpeed: 20,  // un poco más rápido
+    typeSpeed: 20,
     backSpeed: 35,
     showCursor: false
 });
 </script>
+
+
 
 
 </body>
