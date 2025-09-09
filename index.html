@@ -17,19 +17,18 @@ body {
     background: radial-gradient(ellipse at bottom, #000010 0%, #0b0b1f 70%, #1a1a33 100%);
     color:#fff;
 }
-#particles { position: fixed; width: 100%; height: 100%; z-index: -1; }
+#particles { position: fixed; width:100%; height:100%; z-index:-1; }
 
 .btn-gradient {
     background: linear-gradient(90deg, #6366f1, #7c3aed);
-    color:white;
-    font-weight:600;
+    color:white; font-weight:600;
     transition: all 0.3s ease;
 }
 .btn-gradient:hover {
-    opacity:0.95;
-    transform: translateY(-2px);
+    opacity:0.95; transform: translateY(-2px);
     box-shadow: 0 0 12px #7c3aed;
 }
+
 .card {
     background: rgba(30,41,59,0.8);
     border-radius:1rem;
@@ -37,28 +36,22 @@ body {
     box-shadow:0 8px 20px rgba(0,0,0,0.4);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow:0 12px 30px rgba(124,58,237,0.4);
-}
-h1,h2,h3 { color:#fff; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
-p, li, span { color:#e0e0e0; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
+.card:hover { transform: translateY(-8px); box-shadow:0 12px 30px rgba(124,58,237,0.4); }
+
+h1,h2,h3 { color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.6); }
+p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
 
 .glass-input { 
-    background: rgba(255,255,255,0.05); 
-    border:1px solid rgba(255,255,255,0.2); 
-    backdrop-filter: blur(10px); 
-    border-radius:0.75rem; 
-    padding:0.75rem 1rem; 
-    color:#fff; 
-    width:100%; 
-    transition: all 0.3s ease; 
+    background: rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border-radius:0.75rem; padding:0.75rem 1rem; color:#fff;
+    width:100%; transition: all 0.3s ease;
 }
 .glass-input:focus { border-color:#7c3aed; box-shadow:0 0 8px #7c3aed; outline:none; }
-.glass-input.select { appearance: none; -webkit-appearance: none; -moz-appearance: none; cursor:pointer; }
-.glass-input.select:focus { border-color:#7c3aed; box-shadow:0 0 8px #7c3aed; outline:none; }
+.glass-input.select { appearance:none; cursor:pointer; }
 .glass-input.select option { background: rgba(30,41,59,0.95); color:#fff; }
-.glass-input.select::-ms-expand { display: none; }
+.glass-input.select::-ms-expand { display:none; }
 
 .dot-nav { position: fixed; top:50%; right:2rem; transform:translateY(-50%); display:flex; flex-direction:column; gap:1.5rem; z-index:50; }
 .dot-wrapper { position: relative; display:flex; align-items:center; justify-content:flex-end; }
@@ -68,54 +61,41 @@ p, li, span { color:#e0e0e0; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
 .dot.active { background: linear-gradient(90deg, #6366f1, #7c3aed); transform: scale(1.3); box-shadow:0 0 10px #7c3aed; }
 
 .typed-cursor { font-weight:bold; font-size:1.2em; color:#7c3aed; }
-.gradient-title { background: linear-gradient(90deg, #7c3aed, #6366f1); -webkit-background-clip: text; color: transparent; text-shadow: 0 4px 12px rgba(124,58,237,0.5); }
+.gradient-title { background: linear-gradient(90deg, #7c3aed, #6366f1); -webkit-background-clip:text; color:transparent; text-shadow:0 4px 12px rgba(124,58,237,0.5); }
 
- /* Carrusel animado centrado */
-.brand-carousel-wrapper {
-    overflow: hidden;
-    position: relative;
-    margin-top: 3rem;
-    display: flex;
-    justify-content: center; /* centra el carrusel */
-}
-.brand-carousel-track {
-    display: flex;
-    gap: 2rem;
-    animation: scroll 20s linear infinite;
-    flex-wrap: nowrap;
-}
+/* Carrusel marcas */
+.brand-carousel-wrapper { overflow:hidden; position:relative; margin-top:3rem; display:flex; justify-content:center; width:100%; }
+.brand-carousel-track { display:flex; gap:1rem; animation: scroll 20s linear infinite; flex-wrap: nowrap; }
 .brand-carousel-track:hover { animation-play-state: paused; }
-.brand-carousel-track img {
-    height:50px;
-    transition: transform 0.3s ease, filter 0.3s ease;
-}
-.brand-carousel-track img:hover {
-    transform: scale(1.15);
-    filter: drop-shadow(0 0 8px #7c3aed);
-}
+.brand-carousel-track .brand-item { flex:0 0 auto; min-width:120px; display:flex; justify-content:center; align-items:center; background: rgba(30,41,59,0.8); border-radius:0.75rem; padding:0.5rem; transition: transform 0.3s ease, filter 0.3s ease; }
+.brand-carousel-track .brand-item img { height:50px; object-fit:contain; }
+.brand-carousel-track .brand-item:hover { transform:scale(1.15); filter: drop-shadow(0 0 8px #7c3aed); }
+@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-@keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
+.reviews-container { display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; }
+.reviews-container iframe { flex:1 1 400px; max-width:500px; border-radius:12px; border:none; }
 </style>
 </head>
 <body>
 <canvas id="particles"></canvas>
 
+<!-- Navegación lateral -->
 <div class="dot-nav">
     <div class="dot-wrapper"><a href="#hero" class="dot" id="dot-hero"></a><span class="dot-label">Inicio</span></div>
     <div class="dot-wrapper"><a href="#servicios" class="dot" id="dot-servicios"></a><span class="dot-label">Servicios</span></div>
+    <div class="dot-wrapper"><a href="#reseñas" class="dot" id="dot-reseñas"></a><span class="dot-label">Reseñas</span></div>
     <div class="dot-wrapper"><a href="#sobre-mi" class="dot" id="dot-sobre"></a><span class="dot-label">Sobre mí</span></div>
     <div class="dot-wrapper"><a href="#contacto" class="dot" id="dot-contacto"></a><span class="dot-label">Contacto</span></div>
 </div>
 
+<!-- Hero -->
 <section id="hero" class="min-h-screen flex flex-col items-center justify-center text-center px-6" data-aos="fade-up">
     <h1 class="text-5xl md:text-6xl font-extrabold mb-4 gradient-title">RG Tech</h1>
     <p class="text-xl md:text-2xl mb-6"><span id="typed-text"></span></p>
     <a href="#contacto" class="btn-gradient px-6 py-3 rounded-full text-lg">Contáctame</a>
 </section>
 
+<!-- Servicios -->
 <section id="servicios" class="py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
     <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-12 gradient-title">Servicios</h2>
     <div class="grid md:grid-cols-3 gap-8">
@@ -148,36 +128,51 @@ p, li, span { color:#e0e0e0; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
         </div>
     </div>
 
-    <!-- Carrusel animado centrado -->
+    <!-- Carrusel marcas -->
     <div class="brand-carousel-wrapper">
         <div class="brand-carousel-track">
-            <div class="flex items-center justify-center bg-gray-800 rounded-lg p-2"><img src="https://1000logos.net/wp-content/uploads/2021/04/HyperX-logo.png" alt="HyperX"></div>
-            <div class="flex items-center justify-center bg-gray-800 rounded-lg p-2"><img src="https://1000logos.net/wp-content/uploads/2019/09/Razer-logo-thumb.png" alt="Razer"></div>
-            <div class="flex items-center justify-center bg-gray-800 rounded-lg p-2"><img src="https://image.pngaaa.com/503/5477503-middle.png" alt="Redragon"></div>
-            <div class="flex items-center justify-center bg-gray-800 rounded-lg p-2"><img src="https://www.pngfind.com/pngs/m/598-5989107_our-recommended-brands-old-corsair-logo-hd-png.png" alt="Corsair"></div>
-            <!-- Duplicado para scroll infinito -->
-            <div class="flex items-center justify-center bg-gray-800 rounded-lg p-2"><img src="https://1000logos.net/wp-content/uploads/2021/04/HyperX-logo.png" alt="HyperX"></div>
-            <div class="flex items-center justify-center bg-gray-800 rounded-lg p-2"><img src="https://1000logos.net/wp-content/uploads/2019/09/Razer-logo-thumb.png" alt="Razer"></div>
-            <div class="flex items-center justify-center bg-gray-800 rounded-lg p-2"><img src="https://image.pngaaa.com/503/5477503-middle.png" alt="Redragon"></div>
-            <div class="flex items-center justify-center bg-gray-800 rounded-lg p-2"><img src="https://www.pngfind.com/pngs/m/598-5989107_our-recommended-brands-old-corsair-logo-hd-png.png" alt="Corsair"></div>
+            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2021/04/HyperX-logo.png" alt="HyperX"></div>
+            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2019/09/Razer-logo-thumb.png" alt="Razer"></div>
+            <div class="brand-item"><img src="https://image.pngaaa.com/503/5477503-middle.png" alt="Redragon"></div>
+            <div class="brand-item"><img src="https://www.pngfind.com/pngs/m/598-5989107_our-recommended-brands-old-corsair-logo-hd-png.png" alt="Corsair"></div>
+            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2020/05/Logitech-Logo-500x313.png" alt="Logitech"></div>
+            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2016/10/Asus-Logo-500x281.png" alt="Asus"></div>
+            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2020/05/Gigabyte-logo-500x260.jpg" alt="Gigabyte"></div>
+            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2021/05/Intel-logo-500x281.png" alt="Intel"></div>
+            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2020/05/Cooler-Master-Logo-500x313.png" alt="CoolerMaster"></div>
+            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2024/01/TP-Link-Logo-500x281.png" alt="TP-Link"></div>
+            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2021/05/Kingston-logo-500x300.png" alt="Kingston"></div>
         </div>
     </div>
 </section>
 
-<section id="sobre-mi" class="py-20 px-6 bg-gray-900 bg-opacity-50" data-aos="fade-up">
+<!-- Reseñas -->
+<section id="reseñas" class="py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
+    <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-20 gradient-title">Reseñas de Google</h2>
+    <div class="flex flex-col md:flex-row gap-8 justify-center items-start reviews-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3273.613468780669!2d-56.27318278848271!3d-34.865938472748226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x857a6ecae754361d%3A0x142ad622ad592b68!2sRG%20Tech!5e0!3m2!1ses-419!2suy!4v1757435941575!5m2!1ses-419!2suy"
+        width="100%" height="400" style="border-radius:12px; border:none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.min.js"></script>
+        <iframe onload="iFrameResize(this)" src="https://f0be44ba4e3041f298f5a506c8b02578.elf.site" style="width:100%; height:500px; border:none; border-radius:12px;" scrolling="no"></iframe>
+    </div>
+</section>
+
+<!-- Sobre mí -->
+<section id="sobre-mi" class="py-20 px-6 bg-opacity-50" data-aos="fade-up">
     <div class="max-w-4xl mx-auto text-center">
         <h2 class="text-5xl md:text-6xl font-extrabold mb-6 gradient-title">Sobre mí</h2>
         <p class="text-lg leading-relaxed">
-            Soy <span class="font-semibold">Rodrigo Gorga</span>, técnico en informática y fundador de <span class="font-semibold">RG Tech</span>. Me especializo en la reparación, armado y soporte de PCs y celulares, además de brindar asesoramiento personalizado a cada cliente. Mi enfoque es cercano y accesible, sin dejar de lado el profesionalismo y la calidad en cada trabajo.
+            <span id="typed-sobre"></span>
         </p>
     </div>
 </section>
 
+<!-- Contacto -->
 <section id="contacto" class="py-20 px-6 max-w-4xl mx-auto" data-aos="fade-up">
     <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-12 gradient-title">Contacto</h2>
     <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
         <a href="https://wa.me/59892737362?text=Hola,%20quiero%20información%20sobre%20sus%20servicios" class="btn-gradient px-6 py-3 rounded-full text-lg flex items-center justify-center gap-2 mb-6 md:mb-0">
-        📱 Contacto rápido
+            📱 Contacto rápido
         </a>
         <form onsubmit="enviarWhatsApp(event)" class="w-full md:w-2/3 card bg-opacity-60 backdrop-blur">
             <h3 class="text-2xl font-semibold mb-4 text-center text-white">Contacto personalizado</h3>
@@ -192,7 +187,7 @@ p, li, span { color:#e0e0e0; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
                 </select>
             </div>
             <div class="mb-4"><textarea name="mensaje" placeholder="Describe tu problema o servicio requerido" rows="4" required class="glass-input"></textarea></div>
-            <button type="submit" class="btn-gradient px-6 py-3 rounded-full w-full">Enviar whatsapp</button>
+            <button type="submit" class="btn-gradient px-6 py-3 rounded-full w-full">Enviar WhatsApp</button>
         </form>
     </div>
 </section>
@@ -201,62 +196,118 @@ p, li, span { color:#e0e0e0; text-shadow: 0 1px 5px rgba(0,0,0,0.5); }
 
 <script>
 AOS.init({duration:1000, once:true});
-
 const typed = new Typed('#typed-text',{
     strings:['Reparación de PCs','Armado de equipos','Soporte de celulares','Asesoramiento IT'],
-    typeSpeed:60,
-    backSpeed:40,
-    backDelay:2000,
-    loop:true
+    typeSpeed:60, backSpeed:40, backDelay:2000, loop:true
 });
 
 const sections=document.querySelectorAll("section");
-const dots={ hero:document.getElementById("dot-hero"), servicios:document.getElementById("dot-servicios"), "sobre-mi":document.getElementById("dot-sobre"), contacto:document.getElementById("dot-contacto")};
-window.addEventListener("scroll",()=>{
+const dots={
+    hero: document.getElementById("dot-hero"),
+    servicios: document.getElementById("dot-servicios"),
+    "sobre-mi": document.getElementById("dot-sobre"),
+    reseñas: document.getElementById("dot-reseñas"),
+    contacto: document.getElementById("dot-contacto")
+};
+window.addEventListener("scroll", ()=>{
     let current="";
     sections.forEach(section=>{
-        const top=section.offsetTop-150;
-        if(scrollY>=top) current=section.getAttribute("id");
+        const top = section.offsetTop - 150;
+        if(scrollY >= top) current = section.getAttribute("id");
     });
     for(const key in dots) dots[key].classList.remove("active");
     if(dots[current]) dots[current].classList.add("active");
 });
 
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-let stars=[], meteors=[];
-for(let i=0;i<200;i++){
-    stars.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height, r:Math.random()*1.5+0.5, d:Math.random()*0.5 });
+// Partículas con scroll y titileo hiperrealista
+const canvas = document.getElementById("particles"); 
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth; 
+canvas.height = window.innerHeight;
+
+let stars = [];
+for(let i=0;i<300;i++){
+    stars.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*2+0.3,
+        depth: Math.random()*2+0.5,
+        blink: Math.random()*Math.PI*2,
+        blinkSpeed: 0.03 + Math.random()*0.07, // más rápido
+        blinkRange: 0.5 + Math.random()*0.5,
+        flickerOffset: Math.random()*Math.PI*2 // offset para titileo más natural
+    });
+};
+
+let meteors=[];
+function createMeteor(){
+    meteors.push({
+        x: Math.random()*canvas.width,
+        y: -50,
+        length: Math.random()*100+50,
+        speed: Math.random()*12+6,
+        angle: Math.random()*Math.PI/6 + Math.PI/12,
+        alpha: 1
+    });
 }
-function createMeteor(){ meteors.push({ x:Math.random()*canvas.width, y:Math.random()*canvas.height/2, length: Math.random()*80+50, speed: Math.random()*10+6, angle: Math.random()*Math.PI/6 + Math.PI/12 }); }
+
+let lastScrollY = window.scrollY;
+
 function drawParticles(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    // Fondo universo
+    const gradient = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, canvas.width/2);
+    gradient.addColorStop(0,'#0a0a1a');
+    gradient.addColorStop(0.5,'#0b0b2f');
+    gradient.addColorStop(1,'#1a1a3d');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    const scrollDiff = window.scrollY - lastScrollY;
+
+    // Estrellas con titileo más realista y caótico
     stars.forEach(s=>{
+        s.blink += s.blinkSpeed;
+        const flicker = Math.sin(s.blink + s.flickerOffset) + Math.sin(s.blink*1.5 + s.flickerOffset*0.7);
+        const opacity = 0.3 + Math.abs(flicker)*s.blinkRange;
         ctx.beginPath();
-        ctx.arc(s.x,s.y,s.r,0,Math.PI*2,false);
-        ctx.fillStyle="rgba(200,200,255,"+ (0.3 + 0.7*Math.random()) +")";
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2, false);
+        ctx.fillStyle = `rgba(255,255,255,${opacity})`;
         ctx.fill();
-        s.y+=s.d;
-        if(s.y>canvas.height) s.y=0;
+
+        // Parallax con scroll
+        s.y -= scrollDiff * s.depth * 0.5;
+        if(s.y<0) s.y = canvas.height;
+        if(s.y>canvas.height) s.y = 0;
     });
-    ctx.strokeStyle="rgba(255,255,255,0.8)";
-    ctx.lineWidth=1;
-    meteors.forEach((m,i)=>{
+
+    // Meteoros
+    for(let i=meteors.length-1;i>=0;i--){
+        const m = meteors[i];
         ctx.beginPath();
+        ctx.strokeStyle = `rgba(255,255,255,${m.alpha})`;
+        ctx.lineWidth = 1.5;
         ctx.moveTo(m.x,m.y);
         ctx.lineTo(m.x - m.length*Math.cos(m.angle), m.y + m.length*Math.sin(m.angle));
         ctx.stroke();
+
         m.x += -m.speed*Math.cos(m.angle);
         m.y += m.speed*Math.sin(m.angle);
-        if(m.x < -100 || m.y > canvas.height+100) meteors.splice(i,1);
-    });
+        m.alpha -= 0.01;
+        if(m.alpha <=0 || m.x<-200 || m.y>canvas.height+200) meteors.splice(i,1);
+    }
+
+    lastScrollY = window.scrollY;
     requestAnimationFrame(drawParticles);
 }
 drawParticles();
-setInterval(createMeteor, 1500);
-window.addEventListener("resize", ()=>{ canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+setInterval(createMeteor,1500);
+
+window.addEventListener("resize",()=>{
+    canvas.width = window.innerWidth; 
+    canvas.height = window.innerHeight;
+});
 
 // WhatsApp formulario
 function enviarWhatsApp(e){
@@ -264,9 +315,21 @@ function enviarWhatsApp(e){
     const nombre = e.target.nombre.value;
     const dispositivo = e.target.dispositivo.value;
     const mensaje = e.target.mensaje.value;
-    const url = `https://wa.me/59892737362?text=Nombre:%20${encodeURIComponent(nombre)}%0ADispositivo:%20${encodeURIComponent(dispositivo)}%0AMensaje:%20${encodeURIComponent(mensaje)}`;
-    window.location.href = url;
+    const texto = `Hola, mi nombre es ${nombre}. Tengo un ${dispositivo}. ${mensaje}`;
+    const url = `https://wa.me/59892737362?text=${encodeURIComponent(texto)}`;
+    window.open(url,'_blank');
 }
+
+new Typed('#typed-sobre', {
+    strings: [
+        'Soy Rodrigo Gorga, técnico en informática y fundador de RG Tech. Me especializo en la reparación, armado y soporte de PCs y celulares, además de brindar asesoramiento personalizado a cada cliente. También ayudo a optimizar sistemas, instalar software profesional y mejorar el rendimiento de tus dispositivos para que siempre funcionen al máximo.'
+    ],
+    typeSpeed: 20,  // un poco más rápido
+    backSpeed: 35,
+    showCursor: false
+});
 </script>
+
+
 </body>
 </html>
