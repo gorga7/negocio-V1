@@ -313,7 +313,7 @@ function enviarWhatsApp(event){
   const nombre = encodeURIComponent(form.nombre.value);
   const dispositivo = encodeURIComponent(form.dispositivo.value);
   const mensaje = encodeURIComponent(form.mensaje.value);
-  const texto = `Hola, soy ${nombre}. Tengo un ${dispositivo} y necesito: ${mensaje}`;
+  const texto = `Hola, soy ${nombre}. Tengo un ${dispositivo} y ${mensaje}`;
   const url = `https://wa.me/59892737362?text=${texto}`;
   window.open(url, "_blank"); // Abre WhatsApp en nueva pestaña
 }
