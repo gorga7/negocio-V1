@@ -200,7 +200,7 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
         typeSpeed:60, backSpeed:40, backDelay:2000, loop:true
     });
     
-          // --- PARTICLES / STARS ---
+        // --- PARTICLES / STARS ---
     const canvas = document.getElementById("particles"); 
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth; 
@@ -240,18 +240,19 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
     function drawParticles(){
         ctx.clearRect(0,0,canvas.width,canvas.height);
 
-        // --- Fondo tipo cosmos suavizado ---
+        // --- Fondo tipo cosmos con gradiente más largo ---
         const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-        gradient.addColorStop(0, "#0a0015");   // borde izquierdo: violeta muy oscuro, casi negro
-        gradient.addColorStop(0.2, "#0d001e"); // transición muy suave
-        gradient.addColorStop(0.5, "#000005"); // centro: negro absoluto
-        gradient.addColorStop(0.8, "#0d001e"); // transición suave
-        gradient.addColorStop(1, "#0a0015");   // borde derecho: violeta muy oscuro
+        gradient.addColorStop(0, "#0a0015");      // borde izquierdo: violeta oscuro
+        gradient.addColorStop(0.1, "#0d001e");    // transición muy suave
+        gradient.addColorStop(0.45, "#000005");   // centro negro amplio
+        gradient.addColorStop(0.55, "#000005");   // centro negro amplio
+        gradient.addColorStop(0.9, "#0d001e");    // transición suave
+        gradient.addColorStop(1, "#0a0015");      // borde derecho: violeta oscuro
         ctx.fillStyle = gradient;
         ctx.fillRect(0,0,canvas.width,canvas.height);
 
         // --- Nebulosas sutiles ---
-        for(let i=0;i<2;i++){ // menos nebulosas para que sea más sutil
+        for(let i=0;i<2;i++){ 
             const nebulaX = Math.random()*canvas.width;
             const nebulaY = Math.random()*canvas.height;
             const nebulaRad = Math.random()*250 + 150;
