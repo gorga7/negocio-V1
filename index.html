@@ -200,7 +200,7 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
         typeSpeed:60, backSpeed:40, backDelay:2000, loop:true
     });
     
-        // --- PARTICLES / STARS ---
+         // --- PARTICLES / STARS ---
     const canvas = document.getElementById("particles"); 
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth; 
@@ -240,14 +240,13 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
     function drawParticles(){
         ctx.clearRect(0,0,canvas.width,canvas.height);
 
-        // --- Fondo tipo cosmos con gradiente más largo ---
+        // --- Fondo tipo cosmos ultra suave ---
         const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-        gradient.addColorStop(0, "#0a0015");      // borde izquierdo: violeta oscuro
-        gradient.addColorStop(0.1, "#0d001e");    // transición muy suave
-        gradient.addColorStop(0.45, "#000005");   // centro negro amplio
-        gradient.addColorStop(0.55, "#000005");   // centro negro amplio
-        gradient.addColorStop(0.9, "#0d001e");    // transición suave
-        gradient.addColorStop(1, "#0a0015");      // borde derecho: violeta oscuro
+        gradient.addColorStop(0, "#050008");   // borde izquierdo apenas violeta
+        gradient.addColorStop(0.25, "#000005"); // transición casi invisible
+        gradient.addColorStop(0.5, "#000005");  // centro negro profundo
+        gradient.addColorStop(0.75, "#000005"); // transición casi invisible
+        gradient.addColorStop(1, "#050008");   // borde derecho apenas violeta
         ctx.fillStyle = gradient;
         ctx.fillRect(0,0,canvas.width,canvas.height);
 
@@ -257,7 +256,7 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
             const nebulaY = Math.random()*canvas.height;
             const nebulaRad = Math.random()*250 + 150;
             const nebulaGradient = ctx.createRadialGradient(nebulaX, nebulaY, 0, nebulaX, nebulaY, nebulaRad);
-            nebulaGradient.addColorStop(0, `rgba(${30+Math.random()*20},0,${50+Math.random()*50},0.05)`);
+            nebulaGradient.addColorStop(0, `rgba(${20+Math.random()*10},0,${30+Math.random()*20},0.03)`);
             nebulaGradient.addColorStop(1, "rgba(0,0,0,0)");
             ctx.fillStyle = nebulaGradient;
             ctx.fillRect(0,0,canvas.width,canvas.height);
