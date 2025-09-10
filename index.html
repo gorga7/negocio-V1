@@ -200,7 +200,7 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
         typeSpeed:60, backSpeed:40, backDelay:2000, loop:true
     });
     
-       // --- PARTICLES / STARS ---
+        // --- PARTICLES / STARS ---
     const canvas = document.getElementById("particles"); 
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth; 
@@ -240,13 +240,13 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
     function drawParticles(){
         ctx.clearRect(0,0,canvas.width,canvas.height);
 
-        // --- Gradiente horizontal tipo cosmos oscuro ---
+        // --- Gradiente horizontal cosmos profundo ---
         const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-        gradient.addColorStop(0, "#1a062b");   // borde izquierdo: violeta muy oscuro
-        gradient.addColorStop(0.25, "#2c0a4f"); // transición violeta oscuro intenso
-        gradient.addColorStop(0.5, "#030010");  // centro: negro absoluto
-        gradient.addColorStop(0.75, "#2c0a4f"); // transición derecha
-        gradient.addColorStop(1, "#1a062b");   // borde derecho: violeta muy oscuro
+        gradient.addColorStop(0, "#100025");   // borde izquierdo: violeta ultranegro
+        gradient.addColorStop(0.25, "#1b0038"); // transición violeta profundo
+        gradient.addColorStop(0.5, "#000005");  // centro: negro absoluto
+        gradient.addColorStop(0.75, "#1b0038"); // transición derecha
+        gradient.addColorStop(1, "#100025");   // borde derecho: violeta ultranegro
         ctx.fillStyle = gradient;
         ctx.fillRect(0,0,canvas.width,canvas.height);
 
