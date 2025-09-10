@@ -15,7 +15,7 @@ body {
     scroll-behavior: smooth;
     overflow-x:hidden;
     color:#fff;
-    background: radial-gradient(ellipse at bottom, #000010 0%, #0b0b1f 70%, #1a1a33 100%);
+    background: radial-gradient(ellipse at bottom, #000008 0%, #070718 70%, #121228 100%);
 }
 
 #particles { 
@@ -248,14 +248,13 @@ let lastScrollY = window.scrollY;
 function drawParticles(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    // --- Fondo con mismo gradiente que body ---
     const gradient = ctx.createRadialGradient(
         canvas.width/2, canvas.height, 0,
         canvas.width/2, canvas.height, canvas.height
     );
-    gradient.addColorStop(0,"#000010");
-    gradient.addColorStop(0.7,"#0b0b1f");
-    gradient.addColorStop(1,"#1a1a33");
+    gradient.addColorStop(0,"#000008");  // más oscuro
+    gradient.addColorStop(0.7,"#070718");
+    gradient.addColorStop(1,"#121228");
 
     ctx.fillStyle = gradient;
     ctx.fillRect(0,0,canvas.width,canvas.height);
