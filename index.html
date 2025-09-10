@@ -202,6 +202,7 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
 <script>
 AOS.init({duration:1000, once:true});
 
+// Typed.js hero
 const typed = new Typed('#typed-text',{
     strings:['Reparación de PCs','Armado de equipos','Soporte de celulares','Asesoramiento IT'],
     typeSpeed:60, backSpeed:40, backDelay:2000, loop:true
@@ -242,34 +243,20 @@ function createMeteor(){
 }
 
 let lastScrollY = window.scrollY;
-let time = 0;
 
 function drawParticles(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    // --- Fondo degradado cósmico ---
+    // Fondo degradado
     const gradient = ctx.createRadialGradient(
         canvas.width/2, canvas.height/2, 0,
         canvas.width/2, canvas.height/2, canvas.width
     );
-    gradient.addColorStop(0,"#0d0026");   // violeta profundo
-    gradient.addColorStop(0.4,"#060014"); // tono oscuro
-    gradient.addColorStop(1,"#000000");   // negro cósmico
+    gradient.addColorStop(0,"#0a0014");   
+    gradient.addColorStop(0.4,"#060010"); 
+    gradient.addColorStop(1,"#000000");   
     ctx.fillStyle = gradient;
     ctx.fillRect(0,0,canvas.width,canvas.height);
-
-
-    // Nebulosas suaves
-    for(let i=0;i<2;i++){
-        const nebulaX = Math.random()*canvas.width;
-        const nebulaY = Math.random()*canvas.height;
-        const nebulaRad = Math.random()*1800 + 1500;
-        const nebulaGradient = ctx.createRadialGradient(nebulaX,nebulaY,0,nebulaX,nebulaY,nebulaRad);
-        nebulaGradient.addColorStop(0, `rgba(${20+Math.random()*10},0,${30+Math.random()*20},0.002)`);
-        nebulaGradient.addColorStop(1,"rgba(0,0,0,0)");
-        ctx.fillStyle = nebulaGradient;
-        ctx.fillRect(0,0,canvas.width,canvas.height);
-    }
 
     const scrollDiff = window.scrollY - lastScrollY;
 
@@ -283,10 +270,14 @@ function drawParticles(){
         ctx.fillStyle = `rgba(255,255,255,${opacity})`;
         ctx.fill();
 
-        s.y -= scrollDiff * s.depth * 0.5;
+        // Movimiento base (siempre se mueven un poquito)
         s.x += s.driftX;
         s.y += s.driftY;
 
+        // Movimiento adicional cuando scrolleo
+        s.y -= scrollDiff * s.depth * 0.5;
+
+        // Wrap around
         if(s.y<0) s.y = canvas.height;
         if(s.y>canvas.height) s.y = 0;
         if(s.x<0) s.x = canvas.width;
@@ -310,7 +301,6 @@ function drawParticles(){
     }
 
     lastScrollY = window.scrollY;
-    time++;
     requestAnimationFrame(drawParticles);
 }
 drawParticles();
@@ -356,7 +346,6 @@ function activateDot() {
 
 window.addEventListener("scroll", activateDot);
 window.addEventListener("load", activateDot);
-
 </script>
 </body>
 </html>
