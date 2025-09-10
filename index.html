@@ -14,7 +14,7 @@ body {
     margin:0;
     scroll-behavior: smooth;
     overflow-x:hidden;
-    background:#000; /* canvas hace el universo */
+    background:#000;
     color:#fff;
 }
 #particles { position: fixed; width:100%; height:100%; z-index:-1; top:0; left:0; }
@@ -200,12 +200,12 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
         typeSpeed:60, backSpeed:40, backDelay:2000, loop:true
     });
     
-    // --- PARTICLES / STARS ---
+          // --- PARTICLES / STARS ---
     const canvas = document.getElementById("particles"); 
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth; 
     canvas.height = window.innerHeight;
-    
+
     let stars = [];
     for(let i = 0; i < 250; i++){ 
         stars.push({
@@ -221,7 +221,7 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
             driftY: (Math.random()-0.5)*0.2
         });
     }
-    
+
     let meteors=[];
     function createMeteor(){
         meteors.push({
@@ -233,25 +233,23 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
             alpha: 1
         });
     }
-    
+
     let lastScrollY = window.scrollY;
     let time = 0;
-    
+
     function drawParticles(){
         ctx.clearRect(0,0,canvas.width,canvas.height);
-    
-        // Fondo con gradiente dinámico
-        const cx = canvas.width/2, cy = canvas.height/2;
-        const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, canvas.width/1.2);
-        const pulse = (Math.sin(time*0.002)+1)*0.05; // efecto respiración
-        gradient.addColorStop(0, `rgba(10,10,30,1)`);
-        gradient.addColorStop(0.5, `rgba(10,10,40,${0.9+pulse})`);
-        gradient.addColorStop(1, `rgba(20,20,50,1)`);
+
+        // --- Fondo vertical profundo ---
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, "#1a1a1a");    // borde superior más claro
+        gradient.addColorStop(0.5, "#000000");   // centro oscuro
+        gradient.addColorStop(1, "#1a1a1a");    // borde inferior más claro
         ctx.fillStyle = gradient;
         ctx.fillRect(0,0,canvas.width,canvas.height);
-    
+
         const scrollDiff = window.scrollY - lastScrollY;
-    
+
         // Estrellas
         stars.forEach(s=>{
             s.blink += s.blinkSpeed;
@@ -261,18 +259,17 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
             ctx.arc(s.x, s.y, s.r, 0, Math.PI*2, false);
             ctx.fillStyle = `rgba(255,255,255,${opacity})`;
             ctx.fill();
-    
-            // Movimiento parallax + deriva mínima
+
             s.y -= scrollDiff * s.depth * 0.5;
             s.x += s.driftX;
             s.y += s.driftY;
-    
+
             if(s.y<0) s.y = canvas.height;
             if(s.y>canvas.height) s.y = 0;
             if(s.x<0) s.x = canvas.width;
             if(s.x>canvas.width) s.x = 0;
         });
-    
+
         // Meteoros
         for(let i=meteors.length-1;i>=0;i--){
             const m = meteors[i];
@@ -282,20 +279,20 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
             ctx.moveTo(m.x,m.y);
             ctx.lineTo(m.x - m.length*Math.cos(m.angle), m.y + m.length*Math.sin(m.angle));
             ctx.stroke();
-    
+
             m.x += -m.speed*Math.cos(m.angle);
             m.y += m.speed*Math.sin(m.angle);
             m.alpha -= 0.01;
             if(m.alpha <=0 || m.x<-200 || m.y>canvas.height+200) meteors.splice(i,1);
         }
-    
+
         lastScrollY = window.scrollY;
         time++;
         requestAnimationFrame(drawParticles);
     }
     drawParticles();
     setInterval(createMeteor,2000);
-    
+
     window.addEventListener("resize",()=>{
         canvas.width = window.innerWidth; 
         canvas.height = window.innerHeight;
@@ -310,6 +307,6 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
         backSpeed: 35,
         showCursor: false
     });
-    </script>
+</script>
 </body>
 </html>
