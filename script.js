@@ -353,3 +353,32 @@ function enviarWhatsApp(event) {
   });
   if (isAdmin()) createUI();
 })();
+
+/* === CAMBIO SUGERIDO: FAQ expandir/contraer todo + enlaces profundos ===
+   - Botones opcionales (en HTML): <button id="faqExpand">...</button> y <button id="faqCollapse">...</button>
+   - Deep links: usar #faq-q=2 para abrir la 2ª, o ?open=all / #open=all para abrir todas
+*/
+(function(){
+  const faq = document.getElementById('faq');
+  if(!faq) return;
+
+  const details = faq.querySelectorAll('details');
+  const btnExpand = document.getElementById('faqExpand');
+  const btnCollapse = document.getElementById('faqCollapse');
+
+  // Expandir / Contraer (si existen los botones)
+  btnExpand && btnExpand.addEventListener('click', ()=> details.forEach(d=> d.open = true));
+  btnCollapse && btnCollapse.addEventListener('click', ()=> details.forEach((d,i)=> d.open = (i===0))); // deja la 1ª abierta
+
+  // Deep links desde hash o query
+  function getParamFromHash(regex){ const m=(location.hash||'').match(regex); return m?m[1]:null; }
+  const q = getParamFromHash(/faq-q=(\d+)/i);
+  const all = /open=all/i.test(location.hash) || /[?&]open=all/i.test(location.search);
+
+  if(all) {
+    details.forEach(d=> d.open = true);
+  } else if(q && details[q-1]) {
+    details.forEach((d,i)=> d.open = (i === (q-1)));
+    details[q-1].scrollIntoView({behavior:'smooth', block:'center'});
+  }
+})();
