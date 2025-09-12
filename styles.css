@@ -112,3 +112,49 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
   background: linear-gradient(90deg, #6366f1, #7c3aed);
   color:#fff; border-color: transparent;
 }
+
+/* === Fix #1: "En línea" alineado y responsive en Contacto === */
+#contacto h2{
+  display:flex;               /* título + badge en línea */
+  align-items:center;
+  justify-content:center;
+  gap:.5rem;
+  flex-wrap:wrap;             /* si no entra, que baje a 2 líneas sin romper */
+  line-height:1.15;
+}
+#wa-status{
+  display:inline-flex;        /* centra verticalmente el texto dentro del chip */
+  align-items:center;
+  padding:.25rem .6rem;
+  font-size:.75rem;
+  line-height:1;
+  border-radius:9999px;
+}
+
+/* Ajuste fino en pantallas muy chicas para evitar salto visual del H2 */
+@media (max-width: 380px){
+  #contacto h2{ font-size:1.75rem; } /* override suave al tailwind del h2 */
+}
+
+/* === Fix #2: Highlights del héroe con misma altura y centrados === */
+#hero .grid{ align-items:stretch; }
+#hero .grid .card{
+  padding:1rem;               /* más compacto para cards chicas */
+  min-height:88px;            /* altura pareja aunque el texto ocupe 1–2 líneas */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+#hero .grid .card .text-lg{
+  text-align:center;
+}
+
+/* En móvil, dales un poquito más de alto para evitar cortes feos */
+@media (max-width: 640px){
+  #hero .grid .card{ min-height:96px; }
+}
+
+/* Suavizá el “tilt” sólo en esos 4 highlights para que no se sientan inquietos */
+#hero .grid .card:hover{
+  transform: translateY(-4px) rotateX(.25deg) rotateY(.25deg);
+}
