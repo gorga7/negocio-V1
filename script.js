@@ -46,8 +46,16 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.Typed) {
     const ab = (localStorage.getItem('rg_ab') || (localStorage.setItem('rg_ab', Math.random() < 0.5 ? 'A' : 'B'), localStorage.getItem('rg_ab')));
     const heroCopy = (ab === 'A') ? 'Reparación de PCs' : 'Armado de equipos';
-    new Typed('#typed-text', { strings: [heroCopy, 'Soporte de celulares', 'Asesoramiento IT'], typeSpeed: 60, backSpeed: 40, backDelay: 2000, loop: true });
-    new Typed('#typed-sobre', { strings: ['Soy Rodrigo Gorga, técnico en informática y fundador de RG Tech. Me especializo en la reparación, armado y soporte de PCs y celulares, además de brindar asesoramiento personalizado a cada cliente. También ayudo a optimizar sistemas, instalar software profesional y mejorar el rendimiento de tus dispositivos para que siempre funcionen al máximo.'], typeSpeed: 22, backSpeed: 35, showCursor: false });
+    new Typed('#typed-text', {
+      strings: [heroCopy, 'Soporte de celulares', 'Asesoramiento IT'],
+      typeSpeed: 60, backSpeed: 40, backDelay: 2000, loop: true
+    });
+    new Typed('#typed-sobre', {
+      strings: [
+        'Soy Rodrigo Gorga, técnico en informática y fundador de RG Tech. Me especializo en la reparación, armado y soporte de PCs y celulares, además de brindar asesoramiento personalizado a cada cliente. También ayudo a optimizar sistemas, instalar software profesional y mejorar el rendimiento de tus dispositivos para que siempre funcionen al máximo.'
+      ],
+      typeSpeed: 22, backSpeed: 35, showCursor: false
+    });
   }
 });
 
@@ -58,18 +66,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// =================== BACKGROUND ORIGINAL (SEGURO) ===================
+// =================== BACKGROUND ORIGINAL (RESPONSABLE) ===================
 (function () {
   const canvas = document.getElementById("particles");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
 
-  // Menos carga en móvil
-  const STAR_COUNT = window.matchMedia('(max-width: 640px)').matches ? 180 : 300;
+  // Preferencias del usuario y dispositivo
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = Math.min(window.innerWidth, window.innerHeight) < 768;
 
-  let stars = [];
+  // Calidad adaptativa
+  const STAR_COUNT = prefersReduced ? 0 : (isMobile ? 140 : 260);
+  const METEOR_INTERVAL_MS = prefersReduced ? 0 : (isMobile ? 2800 : 2000);
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize, { passive: true });
+
+  // Si el usuario prefiere menos movimiento: fondo estático suave
+  if (prefersReduced) {
+    const gradient = ctx.createRadialGradient(canvas.width / 2, canvas.height, 0, canvas.width / 2, canvas.height, canvas.height);
+    gradient.addColorStop(0, "#000008");
+    gradient.addColorStop(0.7, "#070718");
+    gradient.addColorStop(1, "#0f0f20");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    return; // sin animación
+  }
+
+  // Estrellas
+  const stars = [];
   for (let i = 0; i < STAR_COUNT; i++) {
     stars.push({
       x: Math.random() * canvas.width,
@@ -77,57 +107,68 @@ document.addEventListener('DOMContentLoaded', () => {
       r: Math.random() * 1 + 0.2,
       depth: Math.random() * 2 + 0.5,
       blink: Math.random() * Math.PI * 2,
-      blinkSpeed: 0.02 + Math.random() * 0.05,
+      blinkSpeed: (isMobile ? 0.015 : 0.02) + Math.random() * (isMobile ? 0.035 : 0.05),
       blinkRange: 0.3 + Math.random() * 0.3,
       flickerOffset: Math.random() * Math.PI * 2,
-      driftX: (Math.random() - 0.5) * 0.2,
-      driftY: (Math.random() - 0.5) * 0.2
+      driftX: (Math.random() - 0.5) * (isMobile ? 0.12 : 0.2),
+      driftY: (Math.random() - 0.5) * (isMobile ? 0.12 : 0.2)
     });
   }
-  let meteors = [];
+
+  // Meteoritos
+  const meteors = [];
   function createMeteor() {
     meteors.push({
       x: Math.random() * canvas.width,
       y: -50,
       length: Math.random() * 100 + 50,
-      speed: Math.random() * 12 + 6,
+      speed: (isMobile ? 0.8 : 1) * (Math.random() * 12 + 6),
       angle: Math.random() * Math.PI / 6 + Math.PI / 12,
       alpha: 1
     });
   }
 
   let lastScrollY = window.scrollY;
-  let paused = false; // pausa cuando la pestaña no está visible
+  let rafId = null;
+  let meteorTimer = null;
+  let running = false;
 
-  function drawParticles() {
-    if (paused) { requestAnimationFrame(drawParticles); return; }
+  function drawFrame() {
+    const w = canvas.width, h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const gradient = ctx.createRadialGradient(canvas.width / 2, canvas.height, 0, canvas.width / 2, canvas.height, canvas.height);
+    const gradient = ctx.createRadialGradient(w / 2, h, 0, w / 2, h, h);
     gradient.addColorStop(0, "#000008");
     gradient.addColorStop(0.7, "#070718");
     gradient.addColorStop(1, "#0f0f20");
     ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, w, h);
 
     const scrollDiff = window.scrollY - lastScrollY;
-    stars.forEach(s => {
+
+    // Estrellas
+    for (let i = 0; i < stars.length; i++) {
+      const s = stars[i];
       s.blink += s.blinkSpeed;
       const flicker = Math.sin(s.blink + s.flickerOffset) + Math.sin(s.blink * 1.5 + s.flickerOffset * 0.7);
       const opacity = 0.2 + Math.abs(flicker) * s.blinkRange;
+
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(255,255,255,${opacity})`;
       ctx.fill();
+
       s.x += s.driftX;
       s.y += s.driftY;
       s.y -= scrollDiff * s.depth * 0.5;
-      if (s.y < 0) s.y = canvas.height;
-      if (s.y > canvas.height) s.y = 0;
-      if (s.x < 0) s.x = canvas.width;
-      if (s.x > canvas.width) s.x = 0;
-    });
 
+      if (s.y < 0) s.y = h;
+      if (s.y > h) s.y = 0;
+      if (s.x < 0) s.x = w;
+      if (s.x > w) s.x = 0;
+    }
+
+    // Meteoritos
     for (let i = meteors.length - 1; i >= 0; i--) {
       const m = meteors[i];
       ctx.beginPath();
@@ -136,26 +177,39 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.moveTo(m.x, m.y);
       ctx.lineTo(m.x - m.length * Math.cos(m.angle), m.y + m.length * Math.sin(m.angle));
       ctx.stroke();
+
       m.x += -m.speed * Math.cos(m.angle);
-      m.y += m.speed * Math.sin(m.angle);
+      m.y +=  m.speed * Math.sin(m.angle);
       m.alpha -= 0.01;
-      if (m.alpha <= 0 || m.x < -200 || m.y > canvas.height + 200) meteors.splice(i, 1);
+
+      if (m.alpha <= 0 || m.x < -200 || m.y > h + 200) meteors.splice(i, 1);
     }
+
     lastScrollY = window.scrollY;
-    requestAnimationFrame(drawParticles);
+    rafId = requestAnimationFrame(drawFrame);
   }
-  drawParticles();
 
-  // crear meteoros sólo si no está en pausa
-  setInterval(() => { if (!paused) createMeteor(); }, 2000);
+  function start() {
+    if (running) return;
+    running = true;
+    rafId = requestAnimationFrame(drawFrame);
+    if (METEOR_INTERVAL_MS > 0 && !meteorTimer) {
+      meteorTimer = setInterval(createMeteor, METEOR_INTERVAL_MS);
+    }
+  }
+  function stop() {
+    running = false;
+    if (rafId) cancelAnimationFrame(rafId), rafId = null;
+    if (meteorTimer) clearInterval(meteorTimer), meteorTimer = null;
+  }
 
-  // pausa/retoma animación cuando la pestaña cambia de visibilidad
-  document.addEventListener('visibilitychange', () => { paused = document.hidden; });
-
-  window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  // Iniciar y pausar cuando la pestaña no está visible
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else start();
   });
+
+  start();
 })();
 // =====================================================================
 
@@ -192,7 +246,9 @@ window.addEventListener('load', activateDot);
   if (track) { track.innerHTML += track.innerHTML; }
   const wrap = document.querySelector('.brand-carousel-wrapper');
   if ('IntersectionObserver' in window && wrap && track) {
-    const io = new IntersectionObserver(([e]) => { track.style.animationPlayState = e.isIntersecting ? 'running' : 'paused'; });
+    const io = new IntersectionObserver(([e]) => {
+      track.style.animationPlayState = e.isIntersecting ? 'running' : 'paused';
+    });
     io.observe(wrap);
   }
 })();
@@ -217,18 +273,34 @@ function enviarWhatsApp(event) {
   const copy = document.getElementById('stickyCopy');
   const order = ['hero', 'servicios', 'casos', 'portafolio', 'reseñas', 'sobre-mi', 'contacto', 'faq'];
   const ab = (localStorage.getItem('rg_ab') || (localStorage.setItem('rg_ab', Math.random() < 0.5 ? 'A' : 'B'), localStorage.getItem('rg_ab')));
-  const mapCopy = { servicios: '¿Querés un presupuesto ahora?', casos: '¿Querés un upgrade similar?', portafolio: '¿Te armo uno a medida?', reseñas: '¿Listo para contactarnos?', 'sobre-mi': 'Hablemos por WhatsApp', contacto: 'Escribime ahora y te respondo', hero: (ab === 'A' ? '¿Necesitás ayuda ahora?' : '¿Querés tu presupuesto ya?'), faq: '¿Tenés más dudas? ¡Escribime!' };
+  const mapCopy = {
+    servicios: '¿Querés un presupuesto ahora?',
+    casos: '¿Querés un upgrade similar?',
+    portafolio: '¿Te armo uno a medida?',
+    reseñas: '¿Listo para contactarnos?',
+    'sobre-mi': 'Hablemos por WhatsApp',
+    contacto: 'Escribime ahora y te respondo',
+    hero: (ab === 'A' ? '¿Necesitás ayuda ahora?' : '¿Querés tu presupuesto ya?'),
+    faq: '¿Tenés más dudas? ¡Escribime!'
+  };
   function businessOpen() { const h = new Date().getHours(); return h >= 9 && h < 19; }
   function setState() {
     if (!badge) return;
     const open = businessOpen();
     badge.textContent = open ? 'En línea' : 'Fuera de horario';
-    badge.className = open ? 'align-middle text-xs ml-2 px-2 py-1 rounded-full bg-green-600 bg-opacity-20 text-green-300' : 'align-middle text-xs ml-2 px-2 py-1 rounded-full bg-yellow-600 bg-opacity-20 text-yellow-300';
+    badge.className = open
+      ? 'align-middle text-xs ml-2 px-2 py-1 rounded-full bg-green-600 bg-opacity-20 text-green-300'
+      : 'align-middle text-xs ml-2 px-2 py-1 rounded-full bg-yellow-600 bg-opacity-20 text-yellow-300';
   }
-  function onScroll() { if (!bar) return; if (window.scrollY > 360 && businessOpen()) { bar.classList.add('visible'); } else { bar.classList.remove('visible'); } }
+  function onScroll() {
+    if (!bar) return;
+    if (window.scrollY > 360 && businessOpen()) { bar.classList.add('visible'); }
+    else { bar.classList.remove('visible'); }
+  }
   setState(); onScroll();
   setInterval(setState, 60000);
   window.addEventListener('scroll', onScroll, { passive: true });
+
   const io = new IntersectionObserver((ents) => {
     ents.forEach(e => { if (e.isIntersecting && mapCopy[e.target.id] && copy) { copy.textContent = mapCopy[e.target.id]; } });
   }, { rootMargin: '-45% 0px -55% 0px' });
@@ -246,11 +318,17 @@ function enviarWhatsApp(event) {
     } catch (e) { }
   };
   document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
-    a.addEventListener('click', () => RG.track('whatsapp_click', { section: a.closest('#stickyBar') ? 'sticky' : (a.closest('#contacto') ? 'contacto' : (a.closest('#hero') ? 'hero' : 'otro')) }));
+    a.addEventListener('click', () => RG.track('whatsapp_click', {
+      section: a.closest('#stickyBar') ? 'sticky' : (a.closest('#contacto') ? 'contacto' : (a.closest('#hero') ? 'hero' : 'otro'))
+    }));
   });
-  const tel = document.querySelector('#stickyBar a[href^="tel:"]'); if (tel) { tel.addEventListener('click', () => RG.track('phone_call', { section: 'sticky' })); }
-  const form = document.querySelector('form[onsubmit*="enviarWhatsApp"]'); if (form) { form.addEventListener('submit', () => RG.track('form_submit')); }
-  document.querySelectorAll('.dot-nav a.dot').forEach(d => { d.addEventListener('click', () => RG.track('nav_click', { to: d.getAttribute('href') })); });
+  const tel = document.querySelector('#stickyBar a[href^="tel:"]');
+  if (tel) { tel.addEventListener('click', () => RG.track('phone_call', { section: 'sticky' })); }
+  const form = document.querySelector('form[onsubmit*="enviarWhatsApp"]');
+  if (form) { form.addEventListener('submit', () => RG.track('form_submit')); }
+  document.querySelectorAll('.dot-nav a.dot').forEach(d => {
+    d.addEventListener('click', () => RG.track('nav_click', { to: d.getAttribute('href') }));
+  });
 })();
 
 // === Google Maps: carga bajo demanda ===
@@ -302,7 +380,10 @@ function enviarWhatsApp(event) {
 })();
 
 // === Anti-bot humano: habilitar botón tras breve retardo ===
-(function () { const btn = document.getElementById('sendBtn'); if (!btn) return; setTimeout(() => { btn.disabled = false; }, 500); })();
+(function () {
+  const btn = document.getElementById('sendBtn'); if (!btn) return;
+  setTimeout(() => { btn.disabled = false; }, 500);
+})();
 
 // === Botón Volver Arriba ===
 (function () {
@@ -351,7 +432,10 @@ function enviarWhatsApp(event) {
       btn.setAttribute('aria-expanded', show ? 'true' : 'false');
       refresh();
     });
-    document.getElementById('statsReset').addEventListener('click', () => { Object.values(ids).forEach(k => setK(k, 0)); refresh(); });
+    document.getElementById('statsReset').addEventListener('click', () => {
+      Object.values(ids).forEach(k => setK(k, 0));
+      refresh();
+    });
   }
   function setAdmin(flag) { try { localStorage.setItem('rg_admin', flag ? '1' : '0'); } catch (e) { } }
   document.addEventListener('keydown', (e) => {
@@ -370,10 +454,10 @@ function enviarWhatsApp(event) {
   if (isAdmin()) createUI();
 })();
 
-/* === CAMBIO SUGERIDO: FAQ expandir/contraer todo + enlaces profundos ===
-   - Botones opcionales (en HTML): <button id="faqExpand">...</button> y <button id="faqCollapse">...</button>
-   - Deep links: usar #faq-q=2 para abrir la 2ª, o ?open=all / #open=all para abrir todas
-*/
+/* === FAQ: expandir/contraer todo + enlaces profundos ==================
+   - Botones opcionales (en HTML): #faqExpand / #faqCollapse
+   - Deep links: #faq-q=2 para abrir la 2ª, o ?open=all / #open=all para abrir todas
+======================================================================= */
 (function(){
   const faq = document.getElementById('faq');
   if(!faq) return;
@@ -382,25 +466,9 @@ function enviarWhatsApp(event) {
   const btnExpand = document.getElementById('faqExpand');
   const btnCollapse = document.getElementById('faqCollapse');
 
-  // Expandir / Contraer (si existen los botones)
-  if (btnExpand) {
-    btnExpand.setAttribute('aria-pressed','false');
-    btnExpand.addEventListener('click', ()=>{
-      details.forEach(d=> d.open = true);
-      btnExpand.setAttribute('aria-pressed','true');
-      btnCollapse && btnCollapse.setAttribute('aria-pressed','false');
-    });
-  }
-  if (btnCollapse) {
-    btnCollapse.setAttribute('aria-pressed','false');
-    btnCollapse.addEventListener('click', ()=>{
-      details.forEach(d => d.open = false); // contrae todas
-      btnCollapse.setAttribute('aria-pressed','true');
-      btnExpand && btnExpand.setAttribute('aria-pressed','false');
-    });
-  }
+  btnExpand && btnExpand.addEventListener('click', ()=> details.forEach(d=> d.open = true));
+  btnCollapse && btnCollapse.addEventListener('click', ()=> details.forEach(d => d.open = false));
 
-  // Deep links desde hash o query
   function getParamFromHash(regex){ const m=(location.hash||'').match(regex); return m?m[1]:null; }
   const q = getParamFromHash(/faq-q=(\d+)/i);
   const all = /open=all/i.test(location.hash) || /[?&]open=all/i.test(location.search);
