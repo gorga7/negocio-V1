@@ -368,7 +368,8 @@ function enviarWhatsApp(event) {
 
   // Expandir / Contraer (si existen los botones)
   btnExpand && btnExpand.addEventListener('click', ()=> details.forEach(d=> d.open = true));
-  btnCollapse && btnCollapse.addEventListener('click', ()=> details.forEach((d,i)=> d.open = (i===0))); // deja la 1ª abierta
+ // AHORA
+btnCollapse && btnCollapse.addEventListener('click', ()=> details.forEach(d => d.open = false)); // contrae todas
 
   // Deep links desde hash o query
   function getParamFromHash(regex){ const m=(location.hash||'').match(regex); return m?m[1]:null; }

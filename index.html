@@ -12,69 +12,6 @@
 <link href="styles.css" rel="stylesheet">
 <script src="script.js" defer></script>
 
-<!-- JSON-LD: Negocio local -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ComputerRepairService",
-  "name": "RG Tech",
-  "areaServed": "UY",
-  "telephone": "+59892737362",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Montevideo",
-    "addressCountry": "UY"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": -34.865938472748226,
-    "longitude": -56.27318278848271
-  }
-}
-</script>
-
-<!-- JSON-LD: FAQ -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "¿Hacen retiro y entrega a domicilio?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Sí, en Montevideo y área metropolitana coordinamos retiro/entrega. Consultá por tu zona."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Cuánto demora un diagnóstico?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Generalmente 24 horas. Casos complejos pueden requerir más tiempo; te mantenemos al tanto."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Puedo tener soporte remoto?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Sí, para software y configuración ofrecemos asistencia remota segura."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "¿Garantía?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Todas las reparaciones cuentan con garantía. La duración depende del servicio y repuestos."
-      }
-    }
-  ]
-}
-</script>
-
 <!-- OG / Twitter -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="RG Tech | Reparación y Soporte" />
@@ -103,7 +40,7 @@
   <div class="max-w-6xl mx-auto px-4 py-2">
     <ul class="flex items-center justify-center gap-6 text-sm">
       <li>⚡ Diagnóstico 24h</li>
-      <li>🛡️ Garantía</li>
+      <li>🛡️ Garantía real</li>
       <li>🖥️ Soporte remoto</li>
       <li>🚚 Retiro y entrega</li>
     </ul>
@@ -129,7 +66,7 @@
   <a href="#contacto" class="btn-gradient px-6 py-3 rounded-full text-lg">Contáctame</a>
   <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-10 max-w-4xl">
     <div class="card text-center"><div class="text-lg font-bold">Diagnóstico 24h</div></div>
-    <div class="card text-center"><div class="text-lg font-bold">Garantía</div></div>
+    <div class="card text-center"><div class="text-lg font-bold">Garantía real</div></div>
     <div class="card text-center"><div class="text-lg font-bold">Soporte remoto</div></div>
     <div class="card text-center"><div class="text-lg font-bold">Retiro/entrega</div></div>
   </div>
@@ -427,8 +364,15 @@
 <!-- Preguntas Frecuentes -->
 <section id="faq" class="py-20 px-6 max-w-4xl mx-auto" data-aos="fade-up">
   <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-12 gradient-title">Preguntas frecuentes</h2>
+
+  <!-- Botones opcionales (soportados por script.js) -->
+  <div class="faq-actions flex items-center justify-center gap-3 mb-6">
+    <button type="button" id="faqExpand" class="btn-gradient px-4 py-2 rounded-full text-sm">Expandir todo</button>
+    <button type="button" id="faqCollapse" class="px-4 py-2 rounded-full text-sm border border-purple-400">Contraer todo</button>
+  </div>
+
   <div class="space-y-4">
-    <details class="card p-4">
+    <details class="card p-4" open>
       <summary class="text-lg font-semibold cursor-pointer">¿Hacen retiro y entrega a domicilio?</summary>
       <p class="mt-2 text-sm opacity-90">Sí, en Montevideo y área metropolitana coordinamos retiro/entrega. Consultá por tu zona.</p>
     </details>

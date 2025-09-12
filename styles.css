@@ -72,3 +72,43 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
 @media (prefers-reduced-motion: reduce){
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* FAQ opcional: mejor resumen y toggles */
+#faq details { border-radius: 0.75rem; }
+#faq details summary {
+  list-style: none;           /* saca el marcador nativo */
+  position: relative;
+  padding-right: 2rem;        /* espacio para el icono */
+  outline: none;
+}
+#faq details summary::-webkit-details-marker { display:none; }
+
+#faq details summary::after {  /* caret custom */
+  content: "";
+  position: absolute;
+  right: .75rem; top: 50%;
+  width: .55rem; height: .55rem;
+  border-right: 2px solid #a78bfa;  /* violeta suave */
+  border-bottom: 2px solid #a78bfa;
+  transform: translateY(-50%) rotate(-45deg);
+  transition: transform .2s ease, border-color .2s ease;
+  opacity: .9;
+}
+#faq details[open] summary::after {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* (Opcional) Botones Expandir/Contraer si los agregás en el HTML */
+#faq .faq-actions .btn {
+  background: rgba(124,58,237,.15);
+  color:#e9d5ff;
+  border:1px solid rgba(255,255,255,.15);
+  padding:.4rem .9rem; border-radius:9999px;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+#faq .faq-actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px rgba(124,58,237,.35);
+  background: linear-gradient(90deg, #6366f1, #7c3aed);
+  color:#fff; border-color: transparent;
+}
