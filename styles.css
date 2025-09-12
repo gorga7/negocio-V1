@@ -17,6 +17,12 @@ body {
 h1, h2, h3 { font-family: 'Orbitron', sans-serif; color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.6); }
 p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
 
+/* Reserva de altura para Typed.js (evita saltos) */
+#typed-text, #typed-sobre { min-height:1.2em; display:inline-block; }
+
+/* Margen de scroll para anclas (no quedan tapadas por barras fijas) */
+section { scroll-margin-top: clamp(72px, 10vh, 120px); }
+
 .glass-input { background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius:0.75rem; padding:0.75rem 1rem; color:#fff; width:100%; transition: all 0.3s ease; }
 .glass-input:focus { border-color:#7c3aed; box-shadow:0 0 8px #7c3aed; outline:none; }
 .glass-input.select { appearance:none; cursor:pointer; }
@@ -40,6 +46,10 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
 .brand-carousel-track .brand-item img { height:50px; object-fit:contain; }
 .brand-carousel-track .brand-item:hover { transform:scale(1.15); filter: drop-shadow(0 0 8px #7c3aed); }
 @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* Consistencia visual: altura fija de item + imágenes auto (evita saltos) */
+.brand-carousel-track .brand-item { height:84px; }
+.brand-carousel-track .brand-item img { max-height:50px; width:auto; height:auto; object-fit:contain; }
 
 .reviews-container { display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; }
 .reviews-container iframe { flex:1 1 400px; max-width:500px; border-radius:12px; border:none; }
@@ -71,6 +81,17 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce){
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  html:focus-within { scroll-behavior: auto; }
+}
+
+/* Focus visible accesible */
+.btn-gradient:focus-visible,
+#stickyBar a:focus-visible,
+.dot:focus-visible,
+summary:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(124,58,237,.55), 0 0 0 6px rgba(255,255,255,.18);
+  border-radius: .75rem;
 }
 
 /* FAQ opcional: mejor resumen y toggles */
@@ -107,6 +128,20 @@ p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
   transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
 }
 #faq .faq-actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 12px rgba(124,58,237,.35);
+  background: linear-gradient(90deg, #6366f1, #7c3aed);
+  color:#fff; border-color: transparent;
+}
+/* Estilo directo para el botón real por ID (según tu HTML actual) */
+#faq .faq-actions button#faqCollapse{
+  background: rgba(124,58,237,.15);
+  color:#e9d5ff;
+  border:1px solid rgba(255,255,255,.15);
+  padding:.4rem .9rem; border-radius:9999px;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+#faq .faq-actions button#faqCollapse:hover{
   transform: translateY(-2px);
   box-shadow: 0 0 12px rgba(124,58,237,.35);
   background: linear-gradient(90deg, #6366f1, #7c3aed);

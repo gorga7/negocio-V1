@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
@@ -29,7 +29,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Rajdhani:wght@400;500&display=swap" rel="stylesheet" />
 
 <style>
-
+  /* Podés dejar vacío; el CSS está en styles.css */
 </style>
 </head>
 <body>
@@ -339,7 +339,10 @@
 
 <!-- Contacto -->
 <section id="contacto" class="py-20 px-6 max-w-4xl mx-auto" data-aos="fade-up">
-  <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-12 gradient-title">Contacto <span id="wa-status" aria-live="polite" class="align-middle text-xs ml-2 px-2 py-1 rounded-full bg-green-600 bg-opacity-20 text-green-300">En línea</span></h2>
+  <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-12 gradient-title">
+    Contacto
+    <span id="wa-status" aria-live="polite" class="align-middle text-xs ml-2 px-2 py-1 rounded-full bg-green-600 bg-opacity-20 text-green-300">En línea</span>
+  </h2>
   <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
     <a href="https://wa.me/59892737362?text=Hola,%20quiero%20información%20sobre%20sus%20servicios" target="_blank" rel="noopener" class="btn-gradient px-6 py-3 rounded-full text-lg flex items-center justify-center gap-2 mb-6 md:mb-0">📱 Contacto rápido</a>
     <form onsubmit="enviarWhatsApp(event)" class="w-full md:w-2/3 card bg-opacity-60 backdrop-blur" autocomplete="on">
@@ -367,8 +370,8 @@
 
   <!-- Botones opcionales (soportados por script.js) -->
   <div class="faq-actions flex items-center justify-center gap-3 mb-6">
-    <button type="button" id="faqExpand" class="btn-gradient px-4 py-2 rounded-full text-sm">Expandir todo</button>
-    <button type="button" id="faqCollapse" class="px-4 py-2 rounded-full text-sm border border-purple-400">Contraer todo</button>
+    <button type="button" id="faqExpand" class="btn-gradient px-4 py-2 rounded-full text-sm" aria-pressed="false">Expandir todo</button>
+    <button type="button" id="faqCollapse" class="px-4 py-2 rounded-full text-sm border border-purple-400" aria-pressed="false">Contraer todo</button>
   </div>
 
   <div class="space-y-4">

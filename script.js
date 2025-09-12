@@ -66,8 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
+  // Menos carga en móvil
+  const STAR_COUNT = window.matchMedia('(max-width: 640px)').matches ? 180 : 300;
+
   let stars = [];
-  for (let i = 0; i < 300; i++) {
+  for (let i = 0; i < STAR_COUNT; i++) {
     stars.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -92,8 +95,13 @@ document.addEventListener('DOMContentLoaded', () => {
       alpha: 1
     });
   }
+
   let lastScrollY = window.scrollY;
+  let paused = false; // pausa cuando la pestaña no está visible
+
   function drawParticles() {
+    if (paused) { requestAnimationFrame(drawParticles); return; }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const gradient = ctx.createRadialGradient(canvas.width / 2, canvas.height, 0, canvas.width / 2, canvas.height, canvas.height);
     gradient.addColorStop(0, "#000008");
@@ -137,8 +145,17 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(drawParticles);
   }
   drawParticles();
-  setInterval(createMeteor, 2000);
-  window.addEventListener("resize", () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+  // crear meteoros sólo si no está en pausa
+  setInterval(() => { if (!paused) createMeteor(); }, 2000);
+
+  // pausa/retoma animación cuando la pestaña cambia de visibilidad
+  document.addEventListener('visibilitychange', () => { paused = document.hidden; });
+
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
 })();
 // =====================================================================
 
@@ -320,8 +337,7 @@ function enviarWhatsApp(event) {
     document.body.appendChild(btn); document.body.appendChild(panel);
     const ids = { wa: 'whatsapp_click', phone: 'phone_call', form: 'form_submit', map: 'map_load' };
     function get(k) { try { return parseInt(localStorage.getItem('rg_' + k) || '0', 10); } catch (e) { return 0; } }
-    function setK(k, v) { try { localStorage.setItem('rg_' + k, String(v)); } catch (e) { }
-    }
+    function setK(k, v) { try { localStorage.setItem('rg_' + k, String(v)); } catch (e) { } }
     function refresh() {
       const id = (x) => document.getElementById(x);
       id('stat-wa').textContent = get(ids.wa);
@@ -367,9 +383,22 @@ function enviarWhatsApp(event) {
   const btnCollapse = document.getElementById('faqCollapse');
 
   // Expandir / Contraer (si existen los botones)
-  btnExpand && btnExpand.addEventListener('click', ()=> details.forEach(d=> d.open = true));
- // AHORA
-btnCollapse && btnCollapse.addEventListener('click', ()=> details.forEach(d => d.open = false)); // contrae todas
+  if (btnExpand) {
+    btnExpand.setAttribute('aria-pressed','false');
+    btnExpand.addEventListener('click', ()=>{
+      details.forEach(d=> d.open = true);
+      btnExpand.setAttribute('aria-pressed','true');
+      btnCollapse && btnCollapse.setAttribute('aria-pressed','false');
+    });
+  }
+  if (btnCollapse) {
+    btnCollapse.setAttribute('aria-pressed','false');
+    btnCollapse.addEventListener('click', ()=>{
+      details.forEach(d => d.open = false); // contrae todas
+      btnCollapse.setAttribute('aria-pressed','true');
+      btnExpand && btnExpand.setAttribute('aria-pressed','false');
+    });
+  }
 
   // Deep links desde hash o query
   function getParamFromHash(regex){ const m=(location.hash||'').match(regex); return m?m[1]:null; }
