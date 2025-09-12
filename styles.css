@@ -1,0 +1,74 @@
+/* =================== BACKGROUND ORIGINAL (INTACTO) =================== */
+body {
+  font-family: 'Rajdhani', sans-serif;
+  margin:0;
+  scroll-behavior: smooth;
+  overflow-x:hidden;
+  color:#fff;
+  background: radial-gradient(ellipse at bottom, #000008 0%, #070718 70%, #121228 100%);
+}
+#particles { position: fixed; width:100%; height:100%; z-index:-1; top:0; left:0; pointer-events:none; }
+/* ==================================================================== */
+
+.btn-gradient { background: linear-gradient(90deg, #6366f1, #7c3aed); color:white; font-weight:600; transition: all 0.3s ease; }
+.btn-gradient:hover { opacity:0.95; transform: translateY(-2px); box-shadow: 0 0 12px #7c3aed; }
+.card { background: rgba(30,41,59,0.8); border-radius:1rem; padding:2rem; box-shadow:0 8px 20px rgba(0,0,0,0.4); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.card:hover { transform: translateY(-8px); box-shadow:0 12px 30px rgba(124,58,237,0.4); }
+h1, h2, h3 { font-family: 'Orbitron', sans-serif; color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.6); }
+p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
+
+.glass-input { background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); border-radius:0.75rem; padding:0.75rem 1rem; color:#fff; width:100%; transition: all 0.3s ease; }
+.glass-input:focus { border-color:#7c3aed; box-shadow:0 0 8px #7c3aed; outline:none; }
+.glass-input.select { appearance:none; cursor:pointer; }
+.glass-input.select option { background: rgba(30,41,59,0.95); color:#fff; }
+.glass-input.select::-ms-expand { display:none; }
+
+.dot-nav { position: fixed; top:50%; right:2rem; transform:translateY(-50%); display:flex; flex-direction:column; gap:1.5rem; z-index:50; }
+.dot-wrapper { position: relative; display:flex; align-items:center; justify-content:flex-end; }
+.dot { width:14px; height:14px; border-radius:50%; background: rgba(255,255,255,0.4); transition: all 0.3s ease; display:inline-block; }
+.dot-label { position:absolute; right:2rem; opacity:0; transform: translateX(20px); transition: all 0.2s ease; white-space: nowrap; font-size:0.9rem; background: rgba(0,0,0,0.6); padding:4px 10px; border-radius:6px; color:#fff; }
+.dot-wrapper:hover .dot-label, .dot-wrapper:focus-within .dot-label { opacity:1; transform: translateX(0);}
+.dot.active { background: linear-gradient(90deg, #6366f1, #7c3aed); transform: scale(1.3); box-shadow:0 0 10px #7c3aed; }
+.typed-cursor { font-weight:bold; font-size:1.2em; color:#7c3aed; }
+.gradient-title { background: linear-gradient(90deg, #7c3aed, #6366f1); -webkit-background-clip:text; background-clip:text; color:transparent; text-shadow:0 4px 12px rgba(124,58,237,0.5); }
+
+/* Carrusel marcas */
+.brand-carousel-wrapper { overflow:hidden; position:relative; margin-top:3rem; display:flex; justify-content:center; width:100%; }
+.brand-carousel-track { display:flex; gap:1rem; animation: scroll 20s linear infinite; flex-wrap: nowrap; }
+.brand-carousel-track:hover { animation-play-state: paused; }
+.brand-carousel-track .brand-item { flex:0 0 auto; min-width:120px; display:flex; justify-content:center; align-items:center; background: rgba(30,41,59,0.8); border-radius:0.75rem; padding:0.5rem; transition: transform 0.3s ease, filter 0.3s ease; }
+.brand-carousel-track .brand-item img { height:50px; object-fit:contain; }
+.brand-carousel-track .brand-item:hover { transform:scale(1.15); filter: drop-shadow(0 0 8px #7c3aed); }
+@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+.reviews-container { display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; }
+.reviews-container iframe { flex:1 1 400px; max-width:500px; border-radius:12px; border:none; }
+
+/* Sticky bar móvil */
+.sticky-cta{ position:fixed; left:0; right:0; bottom:-100px; transition:transform .3s ease, bottom .3s ease; }
+.sticky-cta.visible{ bottom:0; }
+@media (min-width: 768px){ .sticky-cta{ display:none; } }
+
+/* Beneficios sticky (desktop) */
+.benefits-bar{ position:fixed; top:0; left:0; right:0; z-index:40; background:rgba(0,0,0,.55); backdrop-filter: blur(8px); border-bottom:1px solid rgba(255,255,255,.08); transform: translateY(-100%); transition: transform .3s ease; }
+.benefits-bar.show{ transform: translateY(0); }
+.benefits-bar li{ color:#e5e7eb; font-weight:600; }
+@media (max-width: 1023px){ .benefits-bar{ display:none; } }
+
+/* Botón volver arriba */
+.to-top{ position:fixed; right:1rem; bottom:1rem; width:44px; height:44px; border-radius:9999px; display:flex; align-items:center; justify-content:center; background:rgba(124,58,237,.9); color:#fff; box-shadow:0 10px 22px rgba(0,0,0,.35); z-index:55; opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; }
+.to-top.show{ opacity:1; pointer-events:auto; }
+.to-top:hover{ transform:translateY(-2px); }
+
+/* Chips filtro portafolio */
+.filter-chip{ background: rgba(124,58,237,.15); color:#e9d5ff; }
+.filter-chip.active{ background: linear-gradient(90deg, #6366f1, #7c3aed); color:#fff; border-color: transparent; }
+
+/* Micro-tilt cards */
+.card{ transform-style: preserve-3d; }
+.card:hover{ transform: translateY(-8px) rotateX(.5deg) rotateY(.5deg); }
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

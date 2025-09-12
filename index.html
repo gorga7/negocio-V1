@@ -1,322 +1,465 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>RG Tech | Reparación & Soporte</title>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Rajdhani:wght@400;500&display=swap" rel="stylesheet">
+<meta name="description" content="Reparación de PC y celulares, upgrades, armado de equipos, soporte remoto y asesoramiento IT. Hogar, gamers, PyMEs y empresas en Uruguay." />
+<meta name="robots" content="index,follow" />
+<meta name="theme-color" content="#0b0b2f" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="styles.css" rel="stylesheet">
+<script src="script.js" defer></script>
+
+<!-- JSON-LD: Negocio local -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ComputerRepairService",
+  "name": "RG Tech",
+  "areaServed": "UY",
+  "telephone": "+59892737362",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Montevideo",
+    "addressCountry": "UY"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -34.865938472748226,
+    "longitude": -56.27318278848271
+  }
+}
+</script>
+
+<!-- JSON-LD: FAQ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Hacen retiro y entrega a domicilio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, en Montevideo y área metropolitana coordinamos retiro/entrega. Consultá por tu zona."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto demora un diagnóstico?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Generalmente 24 horas. Casos complejos pueden requerir más tiempo; te mantenemos al tanto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo tener soporte remoto?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, para software y configuración ofrecemos asistencia remota segura."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Garantía?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Todas las reparaciones cuentan con garantía. La duración depende del servicio y repuestos."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- OG / Twitter -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="RG Tech | Reparación y Soporte" />
+<meta property="og:description" content="Soporte integral: PCs, celulares, upgrades, armado de equipos y consultoría IT." />
+<meta property="og:locale" content="es_UY" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- TailwindCSS (2.x como base) -->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+<!-- AOS / Typed -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<!-- Tipografías -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Rajdhani:wght@400;500&display=swap" rel="stylesheet" />
+
 <style>
-body {
-    font-family: 'Rajdhani', sans-serif;
-    margin:0;
-    scroll-behavior: smooth;
-    overflow-x:hidden;
-    color:#fff;
-    background: radial-gradient(ellipse at bottom, #000008 0%, #070718 70%, #121228 100%);
-}
-#particles { position: fixed; width:100%; height:100%; z-index:-1; top:0; left:0; }
-.btn-gradient {
-    background: linear-gradient(90deg, #6366f1, #7c3aed);
-    color:white; font-weight:600;
-    transition: all 0.3s ease;
-}
-.btn-gradient:hover {
-    opacity:0.95; transform: translateY(-2px);
-    box-shadow: 0 0 12px #7c3aed;
-}
-.card {
-    background: rgba(30,41,59,0.8);
-    border-radius:1rem;
-    padding:2rem;
-    box-shadow:0 8px 20px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.card:hover { transform: translateY(-8px); box-shadow:0 12px 30px rgba(124,58,237,0.4); }
-h1, h2, h3 { font-family: 'Orbitron', sans-serif; color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.6); }
-p, li, span { color:#e0e0e0; text-shadow:0 1px 5px rgba(0,0,0,0.5); }
-.glass-input { 
-    background: rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.2);
-    backdrop-filter: blur(10px);
-    border-radius:0.75rem; padding:0.75rem 1rem; color:#fff;
-    width:100%; transition: all 0.3s ease;
-}
-.glass-input:focus { border-color:#7c3aed; box-shadow:0 0 8px #7c3aed; outline:none; }
-.glass-input.select { appearance:none; cursor:pointer; }
-.glass-input.select option { background: rgba(30,41,59,0.95); color:#fff; }
-.glass-input.select::-ms-expand { display:none; }
-.dot-nav { position: fixed; top:50%; right:2rem; transform:translateY(-50%); display:flex; flex-direction:column; gap:1.5rem; z-index:50; }
-.dot-wrapper { position: relative; display:flex; align-items:center; justify-content:flex-end; }
-.dot { width:14px; height:14px; border-radius:50%; background: rgba(255,255,255,0.4); transition: all 0.3s ease; }
-.dot-label { position:absolute; right:2rem; opacity:0; transform: translateX(20px); transition: all 0.3s ease; white-space: nowrap; font-size:0.9rem; background: rgba(0,0,0,0.6); padding:4px 10px; border-radius:6px; color:#fff; }
-.dot-wrapper:hover .dot-label { opacity:1; transform: translateX(0);}
-.dot.active { background: linear-gradient(90deg, #6366f1, #7c3aed); transform: scale(1.3); box-shadow:0 0 10px #7c3aed; }
-.typed-cursor { font-weight:bold; font-size:1.2em; color:#7c3aed; }
-.gradient-title { background: linear-gradient(90deg, #7c3aed, #6366f1); -webkit-background-clip:text; color:transparent; text-shadow:0 4px 12px rgba(124,58,237,0.5); }
-/* Carrusel marcas */
-.brand-carousel-wrapper { overflow:hidden; position:relative; margin-top:3rem; display:flex; justify-content:center; width:100%; }
-.brand-carousel-track { display:flex; gap:1rem; animation: scroll 20s linear infinite; flex-wrap: nowrap; }
-.brand-carousel-track:hover { animation-play-state: paused; }
-.brand-carousel-track .brand-item { flex:0 0 auto; min-width:120px; display:flex; justify-content:center; align-items:center; background: rgba(30,41,59,0.8); border-radius:0.75rem; padding:0.5rem; transition: transform 0.3s ease, filter 0.3s ease; }
-.brand-carousel-track .brand-item img { height:50px; object-fit:contain; }
-.brand-carousel-track .brand-item:hover { transform:scale(1.15); filter: drop-shadow(0 0 8px #7c3aed); }
-@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-.reviews-container { display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; }
-.reviews-container iframe { flex:1 1 400px; max-width:500px; border-radius:12px; border:none; }
+
 </style>
 </head>
 <body>
 <canvas id="particles"></canvas>
 
+<!-- Beneficios sticky (desktop) -->
+<div id="benefitsBar" class="benefits-bar">
+  <div class="max-w-6xl mx-auto px-4 py-2">
+    <ul class="flex items-center justify-center gap-6 text-sm">
+      <li>⚡ Diagnóstico 24h</li>
+      <li>🛡️ Garantía real</li>
+      <li>🖥️ Soporte remoto</li>
+      <li>🚚 Retiro y entrega</li>
+    </ul>
+  </div>
+</div>
+
 <!-- Navegación lateral -->
-<div class="dot-nav">
-    <div class="dot-wrapper"><a href="#hero" class="dot" id="dot-hero"></a><span class="dot-label">Inicio</span></div>
-    <div class="dot-wrapper"><a href="#servicios" class="dot" id="dot-servicios"></a><span class="dot-label">Servicios</span></div>
-    <div class="dot-wrapper"><a href="#reseñas" class="dot" id="dot-reseñas"></a><span class="dot-label">Reseñas</span></div>
-    <div class="dot-wrapper"><a href="#sobre-mi" class="dot" id="dot-sobre"></a><span class="dot-label">Sobre mí</span></div>
-    <div class="dot-wrapper"><a href="#contacto" class="dot" id="dot-contacto"></a><span class="dot-label">Contacto</span></div>
+<div class="dot-nav" aria-label="Secciones de la página">
+  <div class="dot-wrapper"><a href="#hero" class="dot" id="dot-hero" aria-label="Ir a inicio"></a><span class="dot-label">Inicio</span></div>
+  <div class="dot-wrapper"><a href="#servicios" class="dot" id="dot-servicios" aria-label="Ir a servicios"></a><span class="dot-label">Servicios</span></div>
+  <div class="dot-wrapper"><a href="#casos" class="dot" id="dot-casos" aria-label="Ir a casos de éxito"></a><span class="dot-label">Casos</span></div>
+  <div class="dot-wrapper"><a href="#portafolio" class="dot" id="dot-portafolio" aria-label="Ir a portafolio"></a><span class="dot-label">Portafolio</span></div>
+  <div class="dot-wrapper"><a href="#reseñas" class="dot" id="dot-reseñas" aria-label="Ir a reseñas"></a><span class="dot-label">Reseñas</span></div>
+  <div class="dot-wrapper"><a href="#sobre-mi" class="dot" id="dot-sobre" aria-label="Ir a sobre mí"></a><span class="dot-label">Sobre mí</span></div>
+  <div class="dot-wrapper"><a href="#contacto" class="dot" id="dot-contacto" aria-label="Ir a contacto"></a><span class="dot-label">Contacto</span></div>
+  <div class="dot-wrapper"><a href="#faq" class="dot" id="dot-faq" aria-label="Ir a preguntas frecuentes"></a><span class="dot-label">Preguntas</span></div>
 </div>
 
 <!-- Hero -->
 <section id="hero" class="min-h-screen flex flex-col items-center justify-center text-center px-6" data-aos="fade-up">
-    <h1 class="text-5xl md:text-6xl font-extrabold mb-4 gradient-title">RG Tech</h1>
-    <p class="text-xl md:text-2xl mb-6"><span id="typed-text"></span></p>
-    <a href="#contacto" class="btn-gradient px-6 py-3 rounded-full text-lg">Contáctame</a>
+  <h1 class="text-5xl md:text-6xl font-extrabold mb-4 gradient-title">RG Tech</h1>
+  <p class="text-xl md:text-2xl mb-6"><span id="typed-text"></span></p>
+  <a href="#contacto" class="btn-gradient px-6 py-3 rounded-full text-lg">Contáctame</a>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-10 max-w-4xl">
+    <div class="card text-center"><div class="text-lg font-bold">Diagnóstico 24h</div></div>
+    <div class="card text-center"><div class="text-lg font-bold">Garantía real</div></div>
+    <div class="card text-center"><div class="text-lg font-bold">Soporte remoto</div></div>
+    <div class="card text-center"><div class="text-lg font-bold">Retiro/entrega</div></div>
+  </div>
 </section>
 
 <!-- Servicios -->
 <section id="servicios" class="py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
-    <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-12 gradient-title">Servicios</h2>
-    <div class="grid md:grid-cols-3 gap-8">
-        <div class="card" data-aos="zoom-in">
-            <h3 class="text-2xl font-semibold mb-4">PC</h3>
-            <ul class="space-y-2">
-                <li>🔧 Reparación de hardware</li>
-                <li>⚙️ Armado de equipos personalizados</li>
-                <li>💾 Formateo e instalación de software</li>
-                <li>🚀 Upgrades y optimización</li>
-            </ul>
-        </div>
-        <div class="card" data-aos="zoom-in" data-aos-delay="100">
-            <h3 class="text-2xl font-semibold mb-4">Celulares</h3>
-            <ul class="space-y-2">
-                <li>📱 Reparación de pantallas</li>
-                <li>🔋 Cambio de batería</li>
-                <li>📲 Actualización y limpieza de software</li>
-                <li>🔧 Otros arreglos generales</li>
-            </ul>
-        </div>
-        <div class="card" data-aos="zoom-in" data-aos-delay="200">
-            <h3 class="text-2xl font-semibold mb-4">Asesoramiento</h3>
-            <ul class="space-y-2">
-                <li>💡 Elección de hardware y periféricos</li>
-                <li>📊 Armado de presupuestos</li>
-                <li>🌐 Soporte remoto</li>
-                <li>🤝 Consultoría tecnológica</li>
-            </ul>
-        </div>
+  <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-12 gradient-title">Servicios</h2>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="card" data-aos="zoom-in">
+      <h3 class="text-2xl font-semibold mb-4">PC</h3>
+      <ul class="space-y-2">
+        <li>🔧 Reparación de hardware</li>
+        <li>⚙️ Armado de equipos personalizados</li>
+        <li>💾 Formateo e instalación de software</li>
+        <li>🚀 Upgrades y optimización</li>
+      </ul>
     </div>
+    <div class="card" data-aos="zoom-in" data-aos-delay="100">
+      <h3 class="text-2xl font-semibold mb-4">Celulares</h3>
+      <ul class="space-y-2">
+        <li>📱 Reparación de pantallas</li>
+        <li>🔋 Cambio de batería</li>
+        <li>📲 Actualización y limpieza de software</li>
+        <li>🔧 Otros arreglos generales</li>
+      </ul>
+    </div>
+    <div class="card" data-aos="zoom-in" data-aos-delay="200">
+      <h3 class="text-2xl font-semibold mb-4">Asesoramiento</h3>
+      <ul class="space-y-2">
+        <li>💡 Elección de hardware y periféricos</li>
+        <li>📊 Armado de presupuestos</li>
+        <li>🌐 Soporte remoto</li>
+        <li>🤝 Consultoría tecnológica</li>
+      </ul>
+    </div>
+  </div>
 
-    <!-- Carrusel marcas -->
-    <div class="brand-carousel-wrapper">
-        <div class="brand-carousel-track">
-            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2021/04/HyperX-logo.png" alt="HyperX"></div>
-            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2019/09/Razer-logo-thumb.png" alt="Razer"></div>
-            <div class="brand-item"><img src="https://image.pngaaa.com/503/5477503-middle.png" alt="Redragon"></div>
-            <div class="brand-item"><img src="https://www.pngfind.com/pngs/m/598-5989107_our-recommended-brands-old-corsair-logo-hd-png.png" alt="Corsair"></div>
-            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2020/05/Logitech-Logo-500x313.png" alt="Logitech"></div>
-            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2016/10/Asus-Logo-500x281.png" alt="Asus"></div>
-            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2020/05/Gigabyte-logo-500x260.jpg" alt="Gigabyte"></div>
-            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2021/05/Intel-logo-500x281.png" alt="Intel"></div>
-            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2020/05/Cooler-Master-Logo-500x313.png" alt="CoolerMaster"></div>
-            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2024/01/TP-Link-Logo-500x281.png" alt="TP-Link"></div>
-            <div class="brand-item"><img src="https://1000logos.net/wp-content/uploads/2021/05/Kingston-logo-500x300.png" alt="Kingston"></div>
-        </div>
+  <!-- Carrusel marcas -->
+  <div class="brand-carousel-wrapper">
+    <div class="brand-carousel-track" id="brandTrack">
+      <div class="brand-item"><img loading="lazy" decoding="async" src="https://1000logos.net/wp-content/uploads/2021/04/HyperX-logo.png" alt="HyperX" /></div>
+      <div class="brand-item"><img loading="lazy" decoding="async" src="https://1000logos.net/wp-content/uploads/2019/09/Razer-logo-thumb.png" alt="Razer" /></div>
+      <div class="brand-item"><img loading="lazy" decoding="async" src="https://image.pngaaa.com/503/5477503-middle.png" alt="Redragon" /></div>
+      <div class="brand-item"><img loading="lazy" decoding="async" src="https://www.pngfind.com/pngs/m/598-5989107_our-recommended-brands-old-corsair-logo-hd-png.png" alt="Corsair" /></div>
+      <div class="brand-item"><img loading="lazy" decoding="async" src="https://1000logos.net/wp-content/uploads/2020/05/Logitech-Logo-500x313.png" alt="Logitech" /></div>
+      <div class="brand-item"><img loading="lazy" decoding="async" src="https://1000logos.net/wp-content/uploads/2016/10/Asus-Logo-500x281.png" alt="Asus" /></div>
+      <div class="brand-item"><img loading="lazy" decoding="async" src="https://1000logos.net/wp-content/uploads/2020/05/Gigabyte-logo-500x260.jpg" alt="Gigabyte" /></div>
+      <div class="brand-item"><img loading="lazy" decoding="async" src="https://1000logos.net/wp-content/uploads/2021/05/Intel-logo-500x281.png" alt="Intel" /></div>
+      <div class="brand-item"><img loading="lazy" decoding="async" src="https://1000logos.net/wp-content/uploads/2020/05/Cooler-Master-Logo-500x313.png" alt="CoolerMaster" /></div>
+      <div class="brand-item"><img loading="lazy" decoding="async" src="https://1000logos.net/wp-content/uploads/2024/01/TP-Link-Logo-500x281.png" alt="TP-Link" /></div>
+      <div class="brand-item"><img loading="lazy" decoding="async" src="https://1000logos.net/wp-content/uploads/2021/05/Kingston-logo-500x300.png" alt="Kingston" /></div>
     </div>
+  </div>
+</section>
+
+<!-- Casos de éxito -->
+<section id="casos" class="py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
+  <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-12 gradient-title">Casos de éxito</h2>
+  <div class="grid md:grid-cols-3 gap-8">
+    <article class="card">
+      <h3 class="text-2xl font-semibold mb-2">PC que no encendía</h3>
+      <p class="text-sm opacity-90">Diagnóstico de fuente y motherboard.</p>
+      <ul class="mt-3 text-sm space-y-1 list-disc list-inside">
+        <li><strong>Problema:</strong> Sin señal y reinicios.</li>
+        <li><strong>Solución:</strong> Fuente + BIOS.</li>
+        <li><strong>Resultado:</strong> Estable + pruebas estrés 8h OK.</li>
+      </ul>
+    </article>
+    <article class="card" data-aos-delay="100">
+      <h3 class="text-2xl font-semibold mb-2">Celular lento y con apps</h3>
+      <p class="text-sm opacity-90">Optimización de sistema y limpieza.</p>
+      <ul class="mt-3 text-sm space-y-1 list-disc list-inside">
+        <li><strong>Problema:</strong> Lag y popups.</li>
+        <li><strong>Solución:</strong> Backup, reset seguro y hardening.</li>
+        <li><strong>Resultado:</strong> Arranque 40% más rápido.</li>
+      </ul>
+    </article>
+    <article class="card" data-aos-delay="200">
+      <h3 class="text-2xl font-semibold mb-2">Upgrade para gaming</h3>
+      <p class="text-sm opacity-90">Asesoramiento de GPU/RAM + montaje.</p>
+      <ul class="mt-3 text-sm space-y-1 list-disc list-inside">
+        <li><strong>Problema:</strong> FPS inestables.</li>
+        <li><strong>Solución:</strong> GPU nueva + RAM dual channel.</li>
+        <li><strong>Resultado:</strong> +65% FPS en títulos clave.</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<!-- Portafolio (versión para todo público) -->
+<section id="portafolio" class="py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
+  <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-6 gradient-title">Soluciones listas para usar</h2>
+  <p class="text-center max-w-3xl mx-auto opacity-90 mb-10">
+    Elegí la opción que mejor describe tu necesidad. Te contamos <strong>qué incluye</strong> y <strong>cuánto demora</strong>. Si tenés dudas, escribime y te asesoro.
+  </p>
+
+  <div class="grid md:grid-cols-3 gap-8">
+
+    <!-- 1) PC más rápida -->
+    <article class="card p-6 flex flex-col">
+      <h3 class="text-2xl font-semibold">PC más rápida (24h)</h3>
+      <p class="mt-2 opacity-90">Ideal si tu PC <strong>tarda en encender</strong> o se tranca.</p>
+      <ul class="mt-4 text-sm space-y-2 list-disc list-inside">
+        <li>Optimización de arranque y servicios</li>
+        <li>Limpieza de software y archivos temporales</li>
+        <li>Chequeo de disco/SSD y salud del sistema</li>
+        <li>Actualizaciones críticas y drivers</li>
+      </ul>
+      <div class="mt-4 text-xs opacity-80">Tiempo estimado: <strong>24 horas</strong></div>
+      <a class="btn-gradient mt-6 inline-block text-center px-5 py-2 rounded-full"
+         href="https://wa.me/59892737362?text=Hola%2C%20quiero%20la%20soluci%C3%B3n%20PC%20m%C3%A1s%20r%C3%A1pida%20(24h).%20Mi%20PC%20est%C3%A1%20lenta%20y..."
+         target="_blank" rel="noopener">Quiero esta solución</a>
+      <details class="mt-4 text-sm opacity-80">
+        <summary class="cursor-pointer">Detalle técnico (opcional)</summary>
+        <p class="mt-2">Optimización de startup, desfragmentación/trim, verificación SMART, plan de energía, política de apps en segundo plano y limpieza de registros no críticos.</p>
+      </details>
+    </article>
+
+    <!-- 2) Armado a medida -->
+    <article class="card p-6 flex flex-col">
+      <h3 class="text-2xl font-semibold">Armado a medida (PC nueva)</h3>
+      <p class="mt-2 opacity-90">Para <strong>gaming</strong>, <strong>estudio</strong> o <strong>edición</strong> sin complicarte.</p>
+      <ul class="mt-4 text-sm space-y-2 list-disc list-inside">
+        <li>Asesoramiento según presupuesto y uso</li>
+        <li>Armado profesional y gestión de cables</li>
+        <li>Instalación de sistema y paquetes básicos</li>
+        <li>Pruebas de estabilidad y rendimiento</li>
+      </ul>
+      <div class="mt-4 text-xs opacity-80">Tiempo estimado: <strong>48–72 horas</strong></div>
+      <a class="btn-gradient mt-6 inline-block text-center px-5 py-2 rounded-full"
+         href="https://wa.me/59892737362?text=Hola%2C%20quiero%20un%20armado%20de%20PC%20a%20medida.%20Mi%20presupuesto%20es%20de..."
+         target="_blank" rel="noopener">Quiero esta solución</a>
+      <details class="mt-4 text-sm opacity-80">
+        <summary class="cursor-pointer">Detalle técnico (opcional)</summary>
+        <p class="mt-2">Stress tests CPU/GPU, perfiles XMP/EXPO, actualización BIOS si corresponde, particionado y benchmarks de verificación.</p>
+      </details>
+    </article>
+
+    <!-- 3) Celular como nuevo -->
+    <article class="card p-6 flex flex-col">
+      <h3 class="text-2xl font-semibold">Celular como nuevo</h3>
+      <p class="mt-2 opacity-90">Si tu teléfono está <strong>lento</strong> o lleno de <strong>apps y pop-ups</strong>.</p>
+      <ul class="mt-4 text-sm space-y-2 list-disc list-inside">
+        <li>Limpieza de apps y cache</li>
+        <li>Actualización y configuración segura</li>
+        <li>Backup básico (fotos/contactos)</li>
+        <li>Recomendaciones para mantenerlo ágil</li>
+      </ul>
+      <div class="mt-4 text-xs opacity-80">Tiempo estimado: <strong>24 horas</strong></div>
+      <a class="btn-gradient mt-6 inline-block text-center px-5 py-2 rounded-full"
+         href="https://wa.me/59892737362?text=Hola%2C%20quiero%20la%20puesta%20a%20punto%20de%20mi%20celular.%20Modelo%3A..."
+         target="_blank" rel="noopener">Quiero esta solución</a>
+      <details class="mt-4 text-sm opacity-80">
+        <summary class="cursor-pointer">Detalle técnico (opcional)</summary>
+        <p class="mt-2">Hardening de permisos, limpieza de autoinicio, verificación de batería y calibración básica cuando aplica.</p>
+      </details>
+    </article>
+
+    <!-- 4) Rescate de archivos -->
+    <article class="card p-6 flex flex-col">
+      <h3 class="text-2xl font-semibold">Rescate de archivos</h3>
+      <p class="mt-2 opacity-90">¿Se borraron fotos/documentos o el disco no abre?</p>
+      <ul class="mt-4 text-sm space-y-2 list-disc list-inside">
+        <li>Evaluación inicial del dispositivo</li>
+        <li>Intento de recuperación lógica</li>
+        <li>Entrega en pendrive o nube</li>
+        <li>Informe de resultados</li>
+      </ul>
+      <div class="mt-4 text-xs opacity-80">Tiempo: <strong>24–72 horas</strong> (según caso)</div>
+      <a class="btn-gradient mt-6 inline-block text-center px-5 py-2 rounded-full"
+         href="https://wa.me/59892737362?text=Hola%2C%20necesito%20recuperar%20archivos.%20Qu%C3%A9%20pas%C3%B3%3A..."
+         target="_blank" rel="noopener">Quiero esta solución</a>
+      <details class="mt-4 text-sm opacity-80">
+        <summary class="cursor-pointer">Detalle técnico (opcional)</summary>
+        <p class="mt-2">Clonado a imagen, escaneo de estructuras, recuperación selectiva. <em>No</em> incluye apertura física en laboratorio.</p>
+      </details>
+    </article>
+
+    <!-- 5) Puesta a punto PyME -->
+    <article class="card p-6 flex flex-col">
+      <h3 class="text-2xl font-semibold">Puesta a punto PyME</h3>
+      <p class="mt-2 opacity-90">Para ordenar PCs, <strong>seguridad</strong> y <strong>respaldo</strong> en tu negocio.</p>
+      <ul class="mt-4 text-sm space-y-2 list-disc list-inside">
+        <li>Inventario básico de equipos</li>
+        <li>Usuarios, permisos y antivirus</li>
+        <li>Backups en nube/externo</li>
+        <li>Soporte remoto mensual</li>
+      </ul>
+      <div class="mt-4 text-xs opacity-80">Tiempo de implementación: <strong>a coordinar</strong></div>
+      <a class="btn-gradient mt-6 inline-block text-center px-5 py-2 rounded-full"
+         href="https://wa.me/59892737362?text=Hola%2C%20quiero%20la%20puesta%20a%20punto%20para%20mi%20PyME.%20Somos%20%5Bn%C2%BA%20de%20puestos%5D..."
+         target="_blank" rel="noopener">Quiero esta solución</a>
+      <details class="mt-4 text-sm opacity-80">
+        <summary class="cursor-pointer">Detalle técnico (opcional)</summary>
+        <p class="mt-2">Políticas de actualización, hardening básico, configuración de backup 3-2-1 y documentación resumida.</p>
+      </details>
+    </article>
+
+    <!-- 6) Mantenimiento completo -->
+    <article class="card p-6 flex flex-col">
+      <h3 class="text-2xl font-semibold">Mantenimiento completo</h3>
+      <p class="mt-2 opacity-90">Limpieza interna, <strong>pasta térmica</strong> y chequeo general.</p>
+      <ul class="mt-4 text-sm space-y-2 list-disc list-inside">
+        <li>Limpieza de polvo y ventiladores</li>
+        <li>Reaplicado de pasta (CPU/GPU)</li>
+        <li>Chequeo temperaturas y ruidos</li>
+        <li>Reporte final y recomendaciones</li>
+      </ul>
+      <div class="mt-4 text-xs opacity-80">Tiempo estimado: <strong>24–48 horas</strong></div>
+      <a class="btn-gradient mt-6 inline-block text-center px-5 py-2 rounded-full"
+         href="https://wa.me/59892737362?text=Hola%2C%20quiero%20mantenimiento%20completo%20de%20mi%20PC.%20Modelo%3A..."
+         target="_blank" rel="noopener">Quiero esta solución</a>
+      <details class="mt-4 text-sm opacity-80">
+        <summary class="cursor-pointer">Detalle técnico (opcional)</summary>
+        <p class="mt-2">Curva de ventiladores, undervolt/underclock ligero cuando es útil y verificación de flujo de aire.</p>
+      </details>
+    </article>
+
+  </div>
+
+  <!-- Cómo trabajamos -->
+  <div class="mt-14 grid md:grid-cols-3 gap-6">
+    <div class="card p-5">
+      <div class="text-xl font-semibold">1) Contame tu caso</div>
+      <p class="text-sm opacity-90 mt-1">Escribime por WhatsApp y contame qué necesitás.</p>
+    </div>
+    <div class="card p-5">
+      <div class="text-xl font-semibold">2) Diagnóstico claro</div>
+      <p class="text-sm opacity-90 mt-1">En la mayoría de los casos, en <strong>24h</strong> te digo opciones.</p>
+    </div>
+    <div class="card p-5">
+      <div class="text-xl font-semibold">3) Mano a la obra</div>
+      <p class="text-sm opacity-90 mt-1">Aprobás el plan y coordinamos entrega/retira.</p>
+    </div>
+  </div>
+
+  <p class="text-xs opacity-70 mt-6 text-center">
+    Los tiempos son estimados y pueden variar según disponibilidad y complejidad.
+  </p>
 </section>
 
 <!-- Reseñas -->
 <section id="reseñas" class="py-20 px-6 max-w-6xl mx-auto" data-aos="fade-up">
-    <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-20 gradient-title">Reseñas de Google</h2>
-    <div class="flex flex-col md:flex-row gap-8 justify-center items-start reviews-container">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.min.js"></script>
-        <iframe onload="iFrameResize(this)" src="https://f0be44ba4e3041f298f5a506c8b02578.elf.site" style="width:100%; height:500px;" scrolling="no"></iframe>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3273.613468780669!2d-56.27318278848271!3d-34.865938472748226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x857a6ecae754361d%3A0x142ad622ad592b68!2sRG%20Tech!5e0!3m2!1ses-419!2suy!4v1757435941575!5m2!1ses-419!2suy"
-        width="100%" height="400" style="border-radius:12px; border:none;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-20 gradient-title">Reseñas de Google</h2>
+  <div class="flex flex-col md:flex-row gap-8 justify-center items-start reviews-container">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.min.js"></script>
+    <iframe data-resizable title="Widget de reseñas" src="https://f0be44ba4e3041f298f5a506c8b02578.elf.site" style="width:100%; height:500px;" scrolling="no" loading="lazy"></iframe>
+
+    <!-- Google Maps: carga bajo demanda -->
+    <div id="map-ph" class="card w-full max-w-xl flex flex-col items-center justify-center text-center" role="group" aria-label="Mapa RG Tech">
+      <p class="mb-4 text-gray-200">Ver ubicación en Google Maps</p>
+      <button class="btn-gradient px-5 py-2 rounded-full" id="loadMapBtn" type="button">Cargar mapa</button>
     </div>
+    <template id="map-tpl">
+      <iframe title="Mapa RG Tech" width="100%" height="400" style="border-radius:12px; border:none;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3273.613468780669!2d-56.27318278848271!3d-34.865938472748226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x857a6ecae754361d%3A0x142ad622ad592b68!2sRG%20Tech!5e0!3m2!1ses-419!2suy!4v1757435941575!5m2!1ses-419!2suy"></iframe>
+    </template>
+  </div>
 </section>
 
 <!-- Sobre mí -->
 <section id="sobre-mi" class="py-20 px-6 bg-opacity-50" data-aos="fade-up">
-    <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-5xl md:text-6xl font-extrabold mb-6 gradient-title">Sobre mí</h2>
-        <p class="text-lg leading-relaxed">
-            <span id="typed-sobre"></span>
-        </p>
-    </div>
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-5xl md:text-6xl font-extrabold mb-6 gradient-title">Sobre mí</h2>
+    <p class="text-lg leading-relaxed">
+      <span id="typed-sobre"></span>
+    </p>
+  </div>
 </section>
 
 <!-- Contacto -->
 <section id="contacto" class="py-20 px-6 max-w-4xl mx-auto" data-aos="fade-up">
-    <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-12 gradient-title">Contacto</h2>
-    <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
-        <a href="https://wa.me/59892737362?text=Hola,%20quiero%20información%20sobre%20sus%20servicios" class="btn-gradient px-6 py-3 rounded-full text-lg flex items-center justify-center gap-2 mb-6 md:mb-0">
-            📱 Contacto rápido
-        </a>
-        <form onsubmit="enviarWhatsApp(event)" class="w-full md:w-2/3 card bg-opacity-60 backdrop-blur">
-            <h3 class="text-2xl font-semibold mb-4 text-center text-white">Contacto personalizado</h3>
-            <div class="mb-4"><input type="text" name="nombre" placeholder="Tu nombre" required class="glass-input"></div>
-            <div class="mb-4">
-              <select name="dispositivo" required class="glass-input select">
-                <option value="" disabled selected>Selecciona tipo de dispositivo</option>
-                <option value="PC">PC</option>
-                <option value="Celular">Celular</option>
-                <option value="Tablet">Tablet</option>
-                <option value="Otro">Otro</option>
-              </select>
-            </div>
-            <div class="mb-4"><textarea name="mensaje" placeholder="Describe tu problema o servicio requerido" rows="4" required class="glass-input"></textarea></div>
-            <button type="submit" class="btn-gradient px-6 py-3 rounded-full w-full">Enviar WhatsApp</button>
-          </form>
-    </div>
+  <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-12 gradient-title">Contacto <span id="wa-status" aria-live="polite" class="align-middle text-xs ml-2 px-2 py-1 rounded-full bg-green-600 bg-opacity-20 text-green-300">En línea</span></h2>
+  <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
+    <a href="https://wa.me/59892737362?text=Hola,%20quiero%20información%20sobre%20sus%20servicios" target="_blank" rel="noopener" class="btn-gradient px-6 py-3 rounded-full text-lg flex items-center justify-center gap-2 mb-6 md:mb-0">📱 Contacto rápido</a>
+    <form onsubmit="enviarWhatsApp(event)" class="w-full md:w-2/3 card bg-opacity-60 backdrop-blur" autocomplete="on">
+      <h3 class="text-2xl font-semibold mb-4 text-center text-white">Contacto personalizado</h3>
+      <div class="mb-4"><input type="text" name="nombre" placeholder="Tu nombre" required class="glass-input" autocomplete="name" /></div>
+      <div class="mb-4">
+        <select name="dispositivo" required class="glass-input select">
+          <option value="" disabled selected>Selecciona tipo de dispositivo</option>
+          <option value="PC">PC</option>
+          <option value="Celular">Celular</option>
+          <option value="Tablet">Tablet</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+      <div class="mb-4"><textarea name="mensaje" placeholder="Describe tu problema o servicio requerido" rows="4" required class="glass-input"></textarea></div>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+      <button id="sendBtn" type="submit" class="btn-gradient px-6 py-3 rounded-full w-full" disabled>Enviar WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+<!-- Preguntas Frecuentes -->
+<section id="faq" class="py-20 px-6 max-w-4xl mx-auto" data-aos="fade-up">
+  <h2 class="text-5xl md:text-6xl font-extrabold text-center mb-12 gradient-title">Preguntas frecuentes</h2>
+  <div class="space-y-4">
+    <details class="card p-4">
+      <summary class="text-lg font-semibold cursor-pointer">¿Hacen retiro y entrega a domicilio?</summary>
+      <p class="mt-2 text-sm opacity-90">Sí, en Montevideo y área metropolitana coordinamos retiro/entrega. Consultá por tu zona.</p>
+    </details>
+    <details class="card p-4">
+      <summary class="text-lg font-semibold cursor-pointer">¿Cuánto demora un diagnóstico?</summary>
+      <p class="mt-2 text-sm opacity-90">Generalmente 24 horas. Casos complejos pueden requerir más tiempo; te mantenemos al tanto.</p>
+    </details>
+    <details class="card p-4">
+      <summary class="text-lg font-semibold cursor-pointer">¿Puedo tener soporte remoto?</summary>
+      <p class="mt-2 text-sm opacity-90">Sí, para software y configuración ofrecemos asistencia remota segura.</p>
+    </details>
+    <details class="card p-4">
+      <summary class="text-lg font-semibold cursor-pointer">¿Garantía?</summary>
+      <p class="mt-2 text-sm opacity-90">Todas las reparaciones cuentan con garantía. La duración depende del servicio y repuestos.</p>
+    </details>
+  </div>
 </section>
 
 <footer class="py-6 text-center text-gray-400 text-sm bg-black bg-opacity-50">© 2025 RG Tech - Todos los derechos reservados</footer>
 
-<script>
-AOS.init({duration:1000, once:true});
+<!-- Sticky CTA móvil -->
+<div id="stickyBar" class="sticky-cta bg-black bg-opacity-60 backdrop-filter backdrop-blur-md border-t border-white border-opacity-10">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <span id="stickyCopy" class="text-sm">¿Necesitás ayuda ahora?</span>
+    <div class="flex gap-2">
+      <a href="https://wa.me/59892737362?text=Hola,%20quiero%20información%20sobre%20sus%20servicios" target="_blank" rel="noopener" class="btn-gradient px-4 py-2 rounded-full text-sm">WhatsApp</a>
+      <a href="tel:+59892737362" class="px-4 py-2 rounded-full text-sm border border-purple-400">Llamar</a>
+    </div>
+  </div>
+</div>
+<button id="toTop" class="to-top" aria-label="Volver arriba" title="Volver arriba">↑</button>
 
-// Typed.js hero
-new Typed('#typed-text',{
-    strings:['Reparación de PCs','Armado de equipos','Soporte de celulares','Asesoramiento IT'],
-    typeSpeed:60, backSpeed:40, backDelay:2000, loop:true
-});
-
-// Typed.js sobre mí
-new Typed('#typed-sobre', {
-    strings: [
-        'Soy Rodrigo Gorga, técnico en informática y fundador de RG Tech. Me especializo en la reparación, armado y soporte de PCs y celulares, además de brindar asesoramiento personalizado a cada cliente. También ayudo a optimizar sistemas, instalar software profesional y mejorar el rendimiento de tus dispositivos para que siempre funcionen al máximo.'
-    ],
-    typeSpeed: 22,  
-    backSpeed: 35,
-    showCursor: false
-});
-
-// Partículas y meteoros
-const canvas = document.getElementById("particles"); 
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth; 
-canvas.height = window.innerHeight;
-let stars = [];
-for(let i=0;i<300;i++){ 
-    stars.push({
-        x: Math.random()*canvas.width,
-        y: Math.random()*canvas.height,
-        r: Math.random()*1+0.2,
-        depth: Math.random()*2+0.5,
-        blink: Math.random()*Math.PI*2,
-        blinkSpeed:0.02+Math.random()*0.05,
-        blinkRange:0.3+Math.random()*0.3,
-        flickerOffset: Math.random()*Math.PI*2,
-        driftX:(Math.random()-0.5)*0.2,
-        driftY:(Math.random()-0.5)*0.2
-    });
-}
-let meteors=[];
-function createMeteor(){
-    meteors.push({
-        x: Math.random()*canvas.width,
-        y:-50,
-        length: Math.random()*100+50,
-        speed: Math.random()*12+6,
-        angle: Math.random()*Math.PI/6 + Math.PI/12,
-        alpha:1
-    });
-}
-let lastScrollY = window.scrollY;
-function drawParticles(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    const gradient = ctx.createRadialGradient(canvas.width/2, canvas.height, 0, canvas.width/2, canvas.height, canvas.height);
-    gradient.addColorStop(0,"#000008");
-    gradient.addColorStop(0.7,"#070718");
-    gradient.addColorStop(1,"#0f0f20");
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0,0,canvas.width,canvas.height);
-    const scrollDiff = window.scrollY - lastScrollY;
-    stars.forEach(s=>{
-        s.blink += s.blinkSpeed;
-        const flicker = Math.sin(s.blink + s.flickerOffset) + Math.sin(s.blink*1.5 + s.flickerOffset*0.7);
-        const opacity = 0.2 + Math.abs(flicker)*s.blinkRange;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(255,255,255,${opacity})`;
-        ctx.fill();
-        s.x += s.driftX;
-        s.y += s.driftY;
-        s.y -= scrollDiff * s.depth * 0.5;
-        if(s.y<0) s.y=canvas.height;
-        if(s.y>canvas.height) s.y=0;
-        if(s.x<0) s.x=canvas.width;
-        if(s.x>canvas.width) s.x=0;
-    });
-    for(let i=meteors.length-1;i>=0;i--){
-        const m = meteors[i];
-        ctx.beginPath();
-        ctx.strokeStyle = `rgba(255,255,255,${m.alpha})`;
-        ctx.lineWidth = 1.5;
-        ctx.moveTo(m.x,m.y);
-        ctx.lineTo(m.x - m.length*Math.cos(m.angle), m.y + m.length*Math.sin(m.angle));
-        ctx.stroke();
-        m.x += -m.speed*Math.cos(m.angle);
-        m.y += m.speed*Math.sin(m.angle);
-        m.alpha -= 0.01;
-        if(m.alpha<=0 || m.x<-200 || m.y>canvas.height+200) meteors.splice(i,1);
-    }
-    lastScrollY = window.scrollY;
-    requestAnimationFrame(drawParticles);
-}
-drawParticles();
-setInterval(createMeteor,2000);
-window.addEventListener("resize",()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;});
-
-// Dot nav activation
-const sections = document.querySelectorAll("section");
-const dots = {
-    hero: document.getElementById("dot-hero"),
-    servicios: document.getElementById("dot-servicios"),
-    reseñas: document.getElementById("dot-reseñas"),
-    "sobre-mi": document.getElementById("dot-sobre"),
-    contacto: document.getElementById("dot-contacto")
-};
-function activateDot(){
-    const scrollPos = window.scrollY + window.innerHeight/2;
-    sections.forEach(sec=>{
-        const top = sec.offsetTop;
-        const bottom = top + sec.offsetHeight;
-        if(scrollPos>=top && scrollPos<bottom){
-            Object.values(dots).forEach(d=>d.classList.remove("active"));
-            const id = sec.getAttribute("id");
-            if(dots[id]) dots[id].classList.add("active");
-        }
-    });
-}
-window.addEventListener("scroll", activateDot);
-window.addEventListener("load", activateDot);
-
-function enviarWhatsApp(event){
-  event.preventDefault(); // Evita que se refresque la página
-  const form = event.target;
-  const nombre = encodeURIComponent(form.nombre.value);
-  const dispositivo = encodeURIComponent(form.dispositivo.value);
-  const mensaje = encodeURIComponent(form.mensaje.value);
-  const texto = `Hola, soy ${nombre}. Tengo un ${dispositivo} y ${mensaje}`;
-  const url = `https://wa.me/59892737362?text=${texto}`;
-  window.open(url, "_blank"); // Abre WhatsApp en nueva pestaña
-}
-</script>
 </body>
 </html>
